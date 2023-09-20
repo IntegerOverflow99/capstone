@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VARIANT: 18 # setting the VARIANT of nodejs the image uses, in this case node 18
+    user: 1000:1000
+    env_file:
+      - .env
+    network_mode: host
+    volumes:
+      - ..:/workspace:cached
+      - node_modules:/workspace/node_modules
+      - vscode-extensions:/home/node/.vscode-server/extensions
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: sleep infinity
+
+volumes:
+  node_modules:
+  vscode-extensions:
+  app:

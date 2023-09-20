@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:lts
+    container_name: mariadb
+    restart: unless-stopped
+    environment:
+      - TZ=UTC
+      - MARIADB_ROOT_PASSWORD
+      - MYSQL_DATABASE=mediadata
+    ports:
+      - 3306:3306
+    volumes:
+      - mariadb:/config
+    env_file:
+      - .env
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    restart: unless-stopped
+    depends_on:
+      - mariadb
+    ports:
+      - 8113:80
+    environment:
+      - PMA_HOST=mariadb
+      - UPLOAD_LIMIT=300M
+
+volumes:
+  mariadb:

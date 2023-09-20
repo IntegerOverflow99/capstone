@@ -1,13 +1,13 @@
 {
   "name": "capstone-frontend-e2e",
-  "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/capstone-frontend-e2e/src",
+  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "capstone-frontend-e2e/src",
   "projectType": "application",
   "targets": {
     "e2e": {
       "executor": "@nx/cypress:cypress",
       "options": {
-        "cypressConfig": "apps/capstone-frontend-e2e/cypress.config.ts",
+        "cypressConfig": "capstone-frontend-e2e/cypress.config.ts",
         "devServerTarget": "capstone-frontend:serve:development",
         "testingType": "e2e"
       },
@@ -21,7 +21,7 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/capstone-frontend-e2e/**/*.{js,ts}"]
+        "lintFilePatterns": ["capstone-frontend-e2e/**/*.{js,ts}"]
       }
     }
   },

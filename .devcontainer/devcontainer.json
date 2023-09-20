@@ -1,0 +1,16 @@
+{
+  "name": "Capstone Monorepo",
+  "dockerComposeFile": ["docker-compose.yaml", "docker-compose.extend.yaml"],
+  "workspaceFolder": "/workspace",
+  "service": "app",
+  "runServices": ["mariadb", "phpmyadmin"],
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+    }
+  },
+  "forwardPorts": [80, 443, 3306, 8113],
+  "postCreateCommand": "sudo chown node node_modules && yarn install",
+  "remoteUser": "node"
+}
