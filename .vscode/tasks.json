@@ -11,7 +11,13 @@
     {
       "label": "Serve Backend",
       "type": "shell",
-      "command": "npx nx run capstone-backend:serve"
+      "command": "npx nx run capstone-backend:serve",
+      "problemMatcher": []
+    },
+    {
+      "label": "Build Utilities",
+      "type": "shell",
+      "command": "npx nx build utils"
     }
   ]
 }

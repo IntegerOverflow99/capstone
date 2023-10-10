@@ -1,24 +1,25 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
+import * as bodyParser from 'body-parser';
+import 'reflect-metadata';
+import { Container } from 'inversify';
+import { InversifyExpressServer } from 'inversify-express-utils';
+import './controllers';
+import { UserService } from '@capstone/utils';
 
-import express from 'express';
-import * as path from 'path';
-import authRouter from './routes/auth';
+const container = new Container();
 
-const app = express();
+// set up bindings
+// container.bind<FooService>(FooService).to(FooService);
+container.bind('UserService').to(UserService);
 
-app.use('/', authRouter);
-
-app.use('/assets', express.static(path.join(__dirname, 'assets')));
-
-app.get('/api', (req, res) => {
-  res.send({ message: 'Welcome to capstone-backend!' });
+const server = new InversifyExpressServer(container);
+server.setConfig((app) => {
+  app.use(
+    bodyParser.urlencoded({
+      extended: true,
+    })
+  );
+  app.use(bodyParser.json());
 });
 
-const port = process.env.PORT || 3333;
-const server = app.listen(port, () => {
-  console.log(`Listening at http://localhost:${port}/api`);
-});
-server.on('error', console.error);
+const app = server.build();
+app.listen(3000);

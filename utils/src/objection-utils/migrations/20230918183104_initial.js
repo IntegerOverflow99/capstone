@@ -15,7 +15,7 @@ exports.up = function (knex) {
     })
     .createTable('media', (table) => {
       table.increments('id').primary();
-      table.string('fileLocation').notNullable();
+      table.string('file_location').notNullable();
     })
     .createTable('photos', (table) => {
       table.increments('id').primary();
