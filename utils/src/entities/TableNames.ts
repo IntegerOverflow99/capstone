@@ -9,3 +9,5 @@ export enum TableNames {
   AUDIO = 'audio',
   PHOTOS = 'photos',
 }
+
+export const TableNamesArray = Object.values(TableNames);

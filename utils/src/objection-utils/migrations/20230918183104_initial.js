@@ -51,7 +51,7 @@ exports.up = function (knex) {
       table.string('title').notNullable();
       table.string('description').nullable();
       table.integer('release_year').nullable();
-      table.integer('length').notNullable();
+      table.integer('runtime').notNullable();
       table.integer('width').notNullable();
       table.integer('height').notNullable();
       table.string('genres').nullable();
@@ -60,6 +60,7 @@ exports.up = function (knex) {
         .unsigned()
         .notNullable()
         .references('media.id');
+      table.datetime('uploaded').defaultTo(knex.fn.now());
     })
     .createTable('access_logs', (table) => {
       table.increments('id').primary();
