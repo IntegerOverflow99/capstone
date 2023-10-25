@@ -26,7 +26,6 @@ export class VideoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('get @ /videos');
     const videos = await this.videoService.getAll();
     return videos;
   }

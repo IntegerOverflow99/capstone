@@ -26,7 +26,6 @@ export class MediaController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('get @ /media');
     const media = await this.mediaService.getAll();
     return media;
   }

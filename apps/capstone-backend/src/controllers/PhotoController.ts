@@ -26,7 +26,6 @@ export class PhotoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('get @ /photos');
     const photos = await this.photoService.getAll();
     return photos;
   }

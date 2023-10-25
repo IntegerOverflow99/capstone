@@ -188,7 +188,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
             onClick={() => router.push('/photo')}
           />
           <EasyListItem text="Favorites" />
-          <EasyListItem text="Albums" />
+          {/* <EasyListItem text="Albums" /> */}
           <Divider />
           <EasyListItem
             icon={<VideoLibraryIcon />}
@@ -196,9 +196,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
             onClick={() => router.push('/video')}
           />
           <EasyListItem text="Favorites" />
-          <EasyListItem text="Movies" />
+          {/* <EasyListItem text="Movies" />
           <EasyListItem text="TV" />
-          <EasyListItem text="Home Video" />
+          <EasyListItem text="Home Video" /> */}
         </List>
       </Drawer>
       {/* //margin left should add the width of the drawer if its open */}

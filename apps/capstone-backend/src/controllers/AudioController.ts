@@ -26,7 +26,6 @@ export class AudioController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('get @ /audios');
     const audios = await this.audioService.getAll();
     return audios;
   }

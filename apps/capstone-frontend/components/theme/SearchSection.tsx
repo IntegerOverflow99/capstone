@@ -17,15 +17,18 @@ import {
   IPhotoJSONModel,
   IVideoJSONModel,
 } from '@capstone/utils/types';
+import { useRouter } from 'next/router';
 
 type SearchSectionProps = {
   title?: string;
   data: IVideoJSONModel[] | IAudioJSONModel[] | IPhotoJSONModel[];
   sx?: SxProps;
+  navigatesTo: string;
 };
 
 const SearchSection = (props: SearchSectionProps) => {
-  const { title, data, sx, ...rest } = props;
+  const { title, data, sx, navigatesTo, ...rest } = props;
+  const router = useRouter();
 
   return (
     <Box sx={{ ...sx, m: 2 }}>
@@ -48,7 +51,13 @@ const SearchSection = (props: SearchSectionProps) => {
           <TableBody>
             {data.map((row, idx) => {
               return (
-                <TableRow key={idx}>
+                <TableRow
+                  hover
+                  key={idx}
+                  onClick={() => {
+                    router.push(`${navigatesTo}/${row.id}`);
+                  }}
+                >
                   {Object.values(row).map((value, idx) => {
                     return (
                       <React.Fragment key={idx}>

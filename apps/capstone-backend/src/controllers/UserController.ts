@@ -27,7 +27,6 @@ export class UserController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('get @ /users');
     const users = await this.userService.getAll();
     return users;
   }

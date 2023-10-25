@@ -30,7 +30,7 @@ export function SearchPage() {
   const [videos, setVideos] = useState<IVideoJSONModel[]>([]);
   const [photos, setPhotos] = useState<IPhotoJSONModel[]>([]);
   const [audio, setAudio] = useState<IAudioJSONModel[]>([]);
-  const [tab, setTab] = useState<number>(0);
+  const [tab, setTab] = useState<string>('video');
 
   useEffect(() => {
     const fetchMedia = async () => {
@@ -69,12 +69,13 @@ export function SearchPage() {
       <Container>
         <Paper sx={{ p: 2 }} elevation={20}>
           <Tabs value={tab} onChange={(e, v) => setTab(v)}>
-            <Tab label="Videos" />
-            <Tab label="Photos" />
-            <Tab label="Audio" />
+            <Tab label="Videos" value="video" />
+            <Tab label="Photos" value="photo" />
+            <Tab label="Audio" value="audio" />
           </Tabs>
           <SearchSection
-            data={tab === 0 ? videos : tab === 1 ? photos : audio}
+            data={tab === 'video' ? videos : tab === 'photo' ? photos : audio}
+            navigatesTo={tab}
           />
           {/* <SearchSection data={videos} title="Videos" />
           <Divider />
