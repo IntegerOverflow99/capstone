@@ -4,36 +4,46 @@ import {
   controller,
   httpGet,
   httpPost,
+  httpDelete,
   request,
   response,
-  httpPut,
-  httpDelete,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { UserService } from '@capstone/utils/services';
+import { MediaService } from '@capstone/utils/services';
 import BaseController from './BaseController';
 
-@controller('/user')
-export class UserController
+@controller('/media')
+export class MediaController
   extends BaseController
   implements interfaces.Controller
 {
-  constructor(@inject('UserService') private userService: UserService) {
+  constructor(@inject('MediaService') private mediaService: MediaService) {
     super();
   }
 
   @httpGet('/')
-  private async getAllUsers(
+  private async getAllMedia(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('get @ /users');
-    const users = await this.userService.getAll();
-    return users;
+    console.log('get @ /media');
+    const media = await this.mediaService.getAll();
+    return media;
+  }
+
+  @httpGet('/search')
+  private async searchMedia(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    const media = await this.mediaService.searchMedia(
+      req.query.search as string
+    );
+    return media;
   }
 
   @httpGet('/:id')
-  private async getUser(
+  private async getMedia(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
@@ -45,22 +55,22 @@ export class UserController
         400
       );
     } else {
-      const user = await this.userService.getById(Number(req.params.id));
-      if (!user) {
+      const media = await this.mediaService.getById(Number(req.params.id));
+      if (!media) {
         return this.json(
           {
-            error: 'User not found',
+            error: 'Media not found',
           },
           404
         );
       } else {
-        return this.json(user);
+        return this.json(media);
       }
     }
   }
 
   @httpDelete('/:id')
-  private async deleteUser(
+  private async deleteMedia(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
@@ -72,29 +82,26 @@ export class UserController
         400
       );
     } else {
-      const user = await this.userService.getById(Number(req.params.id));
-      if (!user) {
+      const media = await this.mediaService.deleteMedia(Number(req.params.id));
+      if (!media) {
         return this.json(
           {
-            error: 'User not found',
+            error: 'Media not found',
           },
           404
         );
       } else {
-        const deleted = await this.userService.deleteUser(
-          Number(req.params.id)
-        );
-        return this.json(deleted);
+        return this.json(media);
       }
     }
   }
 
   @httpPost('/')
-  private async addUser(
+  private async addMedia(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    const user = await this.userService.addUser(req.body);
-    return this.json(user);
+    const media = await this.mediaService.addMedia(req.body);
+    return this.json(media);
   }
 }

@@ -6,7 +6,8 @@
     {
       "label": "Serve Frontend",
       "type": "shell",
-      "command": "npx nx run capstone-frontend:serve"
+      "command": "npx nx run capstone-frontend:serve",
+      "problemMatcher": []
     },
     {
       "label": "Serve Backend",

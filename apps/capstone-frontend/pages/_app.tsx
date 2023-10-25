@@ -33,17 +33,20 @@ import { AccountCircle } from '@mui/icons-material';
 import Image from 'next/image';
 import logo from '../assets/logo.jpg';
 import { ReactNode, useState } from 'react';
+import { useRouter } from 'next/router';
+import { useSearchParams } from 'next/navigation';
 
 interface EasyListItemProps {
   text: string;
   icon?: ReactNode;
+  onClick?: () => void;
 }
 
 const EasyListItem = (props: EasyListItemProps) => {
-  const { icon, text } = props;
+  const { icon, text, onClick } = props;
   return (
     <ListItem>
-      <ListItemButton>
+      <ListItemButton onClick={onClick}>
         <ListItemIcon>{icon}</ListItemIcon>
         <ListItemText primary={text} />
       </ListItemButton>
@@ -81,6 +84,8 @@ function CustomApp({ Component, pageProps }: AppProps) {
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };
+  const router = useRouter();
+  const searchParams = useSearchParams();
   return (
     <>
       <Head>
@@ -159,19 +164,37 @@ function CustomApp({ Component, pageProps }: AppProps) {
       >
         <Toolbar />
         <List dense sx={{ mt: 2 }}>
-          <EasyListItem icon={<HomeIcon />} text="Home" />
+          <EasyListItem
+            icon={<HomeIcon />}
+            text="Home"
+            onClick={() => {
+              router.push('/');
+            }}
+          />
           <EasyListItem text="Favorites" />
           <EasyListItem text="Recents" />
           <Divider />
-          <EasyListItem icon={<LibraryMusicIcon />} text="Music" />
+          <EasyListItem
+            icon={<LibraryMusicIcon />}
+            text="Music"
+            onClick={() => router.push('/audio')}
+          />
           <EasyListItem text="Favorites" />
           {/* TODO: add generated genre subcategories */}
           <Divider />
-          <EasyListItem icon={<CameraIcon />} text="Photos" />
+          <EasyListItem
+            icon={<CameraIcon />}
+            text="Photos"
+            onClick={() => router.push('/photo')}
+          />
           <EasyListItem text="Favorites" />
           <EasyListItem text="Albums" />
           <Divider />
-          <EasyListItem icon={<VideoLibraryIcon />} text="Videos" />
+          <EasyListItem
+            icon={<VideoLibraryIcon />}
+            text="Videos"
+            onClick={() => router.push('/video')}
+          />
           <EasyListItem text="Favorites" />
           <EasyListItem text="Movies" />
           <EasyListItem text="TV" />
@@ -189,7 +212,13 @@ function CustomApp({ Component, pageProps }: AppProps) {
             }),
         }}
       >
-        <Paper elevation={12} sx={{ backgroundColor: 'action.disabled' }}>
+        <Paper
+          elevation={12}
+          sx={{
+            backgroundColor: 'action.disabled',
+          }}
+          style={{ maxHeight: 'max(100vh, 100%)' }}
+        >
           <Component {...pageProps} />
         </Paper>
       </Box>

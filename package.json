@@ -7,7 +7,7 @@
     "migrate:make": "knex --knexfile ./utils/src/objection-utils/knexconfig.ts migrate:make",
     "migrate:rollback": "knex --knexfile ./utils/src/objection-utils/knexconfig.ts migrate:rollback",
     "seed:make": "knex --knexfile ./uitls/src/objection-utils/knexconfig.ts seed:make",
-    "seed:run": "knex --knexfile ./utils/src/objection-utils/knexconfig.ts seed:run"
+    "seed": "knex --knexfile ./utils/src/objection-utils/knexconfig.ts seed:run"
   },
   "private": true,
   "dependencies": {
@@ -19,6 +19,7 @@
     "@nx/next": "16.8.0",
     "axios": "^1.0.0",
     "chance": "^1.1.11",
+    "cors": "^2.8.5",
     "dayjs": "^1.11.9",
     "express": "^4.18.1",
     "inversify": "^6.0.1",

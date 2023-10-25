@@ -13,6 +13,11 @@ export type IAudioDBModel = {
   uploaded: string;
 };
 
+export type IAudioJSONModel = {
+  id?: number;
+  media_id?: number;
+} & IAudioDBModel;
+
 export const AudioGenerator = (
   chance: Chance.Chance,
   id: number,

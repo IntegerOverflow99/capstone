@@ -14,6 +14,11 @@ export type IVideoDBModel = {
   uploaded: string;
 };
 
+export type IVideoJSONModel = {
+  id?: number;
+  media_id?: number;
+} & IVideoDBModel;
+
 export const VideoGenerator = (
   chance: Chance.Chance,
   id: number,

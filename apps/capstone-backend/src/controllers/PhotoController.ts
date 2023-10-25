@@ -4,36 +4,35 @@ import {
   controller,
   httpGet,
   httpPost,
+  httpDelete,
   request,
   response,
-  httpPut,
-  httpDelete,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { UserService } from '@capstone/utils/services';
+import { PhotoService } from '@capstone/utils/services';
 import BaseController from './BaseController';
 
-@controller('/user')
-export class UserController
+@controller('/photo')
+export class PhotoController
   extends BaseController
   implements interfaces.Controller
 {
-  constructor(@inject('UserService') private userService: UserService) {
+  constructor(@inject('PhotoService') private photoService: PhotoService) {
     super();
   }
 
   @httpGet('/')
-  private async getAllUsers(
+  private async getAllPhotos(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('get @ /users');
-    const users = await this.userService.getAll();
-    return users;
+    console.log('get @ /photos');
+    const photos = await this.photoService.getAll();
+    return photos;
   }
 
   @httpGet('/:id')
-  private async getUser(
+  private async getPhoto(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
@@ -45,56 +44,53 @@ export class UserController
         400
       );
     } else {
-      const user = await this.userService.getById(Number(req.params.id));
-      if (!user) {
+      const photo = await this.photoService.getById(Number(req.params.id));
+      if (!photo) {
         return this.json(
           {
-            error: 'User not found',
+            error: 'Photo not found',
           },
           404
         );
       } else {
-        return this.json(user);
-      }
-    }
-  }
-
-  @httpDelete('/:id')
-  private async deleteUser(
-    @request() req: express.Request,
-    @response() res: express.Response
-  ) {
-    if (Number.isNaN(Number(req.params.id))) {
-      return this.json(
-        {
-          error: 'Invalid ID',
-        },
-        400
-      );
-    } else {
-      const user = await this.userService.getById(Number(req.params.id));
-      if (!user) {
-        return this.json(
-          {
-            error: 'User not found',
-          },
-          404
-        );
-      } else {
-        const deleted = await this.userService.deleteUser(
-          Number(req.params.id)
-        );
-        return this.json(deleted);
+        return this.json(photo);
       }
     }
   }
 
   @httpPost('/')
-  private async addUser(
+  private async addPhoto(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    const user = await this.userService.addUser(req.body);
-    return this.json(user);
+    const photo = await this.photoService.addPhoto(req.body);
+    return this.json(photo);
+  }
+
+  @httpDelete('/:id')
+  private async deletePhoto(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    if (Number.isNaN(Number(req.params.id))) {
+      return this.json(
+        {
+          error: 'Invalid ID',
+        },
+        400
+      );
+    } else {
+      const photo = await this.photoService.deletePhoto(Number(req.params.id));
+      if (!photo) {
+        return this.json(
+          {
+            error: 'Photo not found',
+          },
+          404
+        );
+      } else {
+        return this.json(photo);
+      }
+    }
   }
 }

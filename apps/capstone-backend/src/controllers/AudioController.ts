@@ -4,36 +4,35 @@ import {
   controller,
   httpGet,
   httpPost,
+  httpDelete,
   request,
   response,
-  httpPut,
-  httpDelete,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { UserService } from '@capstone/utils/services';
+import { AudioService } from '@capstone/utils/services';
 import BaseController from './BaseController';
 
-@controller('/user')
-export class UserController
+@controller('/audio')
+export class AudioController
   extends BaseController
   implements interfaces.Controller
 {
-  constructor(@inject('UserService') private userService: UserService) {
+  constructor(@inject('AudioService') private audioService: AudioService) {
     super();
   }
 
   @httpGet('/')
-  private async getAllUsers(
+  private async getAllAudios(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('get @ /users');
-    const users = await this.userService.getAll();
-    return users;
+    console.log('get @ /audios');
+    const audios = await this.audioService.getAll();
+    return audios;
   }
 
   @httpGet('/:id')
-  private async getUser(
+  private async getAudio(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
@@ -45,56 +44,53 @@ export class UserController
         400
       );
     } else {
-      const user = await this.userService.getById(Number(req.params.id));
-      if (!user) {
+      const audio = await this.audioService.getById(Number(req.params.id));
+      if (!audio) {
         return this.json(
           {
-            error: 'User not found',
+            error: 'Audio not found',
           },
           404
         );
       } else {
-        return this.json(user);
-      }
-    }
-  }
-
-  @httpDelete('/:id')
-  private async deleteUser(
-    @request() req: express.Request,
-    @response() res: express.Response
-  ) {
-    if (Number.isNaN(Number(req.params.id))) {
-      return this.json(
-        {
-          error: 'Invalid ID',
-        },
-        400
-      );
-    } else {
-      const user = await this.userService.getById(Number(req.params.id));
-      if (!user) {
-        return this.json(
-          {
-            error: 'User not found',
-          },
-          404
-        );
-      } else {
-        const deleted = await this.userService.deleteUser(
-          Number(req.params.id)
-        );
-        return this.json(deleted);
+        return this.json(audio);
       }
     }
   }
 
   @httpPost('/')
-  private async addUser(
+  private async addAudio(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    const user = await this.userService.addUser(req.body);
-    return this.json(user);
+    const audio = await this.audioService.addAudio(req.body);
+    return this.json(audio);
+  }
+
+  @httpDelete('/:id')
+  private async deleteAudio(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    if (Number.isNaN(Number(req.params.id))) {
+      return this.json(
+        {
+          error: 'Invalid ID',
+        },
+        400
+      );
+    } else {
+      const audio = await this.audioService.deleteAudio(Number(req.params.id));
+      if (!audio) {
+        return this.json(
+          {
+            error: 'Audio not found',
+          },
+          404
+        );
+      } else {
+        return this.json(audio);
+      }
+    }
   }
 }

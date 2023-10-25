@@ -12,6 +12,11 @@ export type IPhotoDBModel = {
   media_id: number;
 };
 
+export type IPhotoJSONModel = {
+  id?: number;
+  media_id?: number;
+} & IPhotoDBModel;
+
 export const PhotoGenerator = (
   chance: Chance.Chance,
   id: number,
