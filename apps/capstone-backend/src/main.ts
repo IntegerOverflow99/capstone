@@ -36,6 +36,10 @@ server.setConfig((app) => {
     })
   );
   app.use(bodyParser.json());
+  //bodyparser setup for parsing images, videos, audio
+  app.use(bodyParser.raw({ type: 'image/*', limit: '50mb' }));
+  app.use(bodyParser.raw({ type: 'video/*', limit: '50mb' }));
+  app.use(bodyParser.raw({ type: 'audio/*', limit: '50mb' }));
   app.use(cors());
 });
 

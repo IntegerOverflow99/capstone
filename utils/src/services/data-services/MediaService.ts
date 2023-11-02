@@ -1,6 +1,12 @@
+import { writeFile, writeFileSync } from 'fs';
 import { Media } from '../../entities/Media';
-import { IMediaDBModel, IMediaJSONModel } from '../../types/Media.types';
+import {
+  IMediaDBModel,
+  IMediaJSONModel,
+  IMediaUpload,
+} from '../../types/Media.types';
 import DataService from './data-service-decorator';
+import crypto from 'crypto';
 
 @DataService()
 export class MediaService {
@@ -19,8 +25,18 @@ export class MediaService {
     return res;
   }
 
-  public async addMedia(media: IMediaDBModel) {
-    const res = (await Media.query().insert(media)) as IMediaDBModel;
+  public async addMedia(media: Buffer, fileExtension: string) {
+    const rootFileLocation =
+      process.env['NODE_ENV'] === 'production' ? '/media' : '/tmp/media';
+    const fileLocation = `${rootFileLocation}/${crypto.randomUUID()}.${fileExtension}`;
+    const insertMedia = {
+      file_location: fileLocation,
+    } as IMediaUpload;
+
+    //write the file to the file system
+    writeFileSync(fileLocation, media);
+
+    const res = (await Media.query().insert(insertMedia)) as IMediaDBModel;
     return res;
   }
 
@@ -37,13 +53,7 @@ export class MediaService {
         'audio:description',
         'like',
         `%${search}%`
-      )) as //   .orWhere('audio.genres', 'like', `%${search}%`) //   .orWhere('audio.album', 'like', `%${search}%`) //   .orWhere('audio.artist', 'like', `%${search}%`)
-    //   .orWhere('audio.release_year', 'like', `%${search}%`)
-    //   .orWhere('video.title', 'like', `%${search}%`)
-    //   .orWhere('video.description', 'like', `%${search}%`)
-    //   .orWhere('video.genres', 'like', `%${search}%`)
-    //   .orWhere('video.release_year', 'like', `%${search}%`)
-    //   .orWhere('photo.global_tags', 'like', `%${search}%`)
+      )) as //   .orWhere('photo.global_tags', 'like', `%${search}%`) //   .orWhere('video.release_year', 'like', `%${search}%`) //   .orWhere('video.genres', 'like', `%${search}%`) //   .orWhere('video.description', 'like', `%${search}%`) //   .orWhere('video.title', 'like', `%${search}%`) //   .orWhere('audio.release_year', 'like', `%${search}%`) //   .orWhere('audio.genres', 'like', `%${search}%`) //   .orWhere('audio.album', 'like', `%${search}%`) //   .orWhere('audio.artist', 'like', `%${search}%`)
     //   .orWhere(
     //     'photo.description',
     //     'like',

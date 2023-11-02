@@ -2,6 +2,7 @@ import { IVideoDBModel } from '../types';
 import BaseEntity from './BaseEntity';
 import { TableNames } from './TableNames';
 import { Media } from './Media';
+import { IVideoRatings } from '../types';
 
 export class Video extends BaseEntity implements IVideoDBModel {
   static override get tableName() {
@@ -18,6 +19,7 @@ export class Video extends BaseEntity implements IVideoDBModel {
   genres!: string;
   media_id!: number;
   uploaded!: string;
+  rating!: IVideoRatings;
 
   static override relationMappings = () => ({
     media: {

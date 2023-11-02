@@ -21,7 +21,7 @@ import {
 } from '@mui/material';
 import React, { useMemo, useState, useEffect } from 'react';
 import { camelToCapsAndSpaces } from '@capstone/utils/general';
-import SearchSection from '../components/theme/SearchSection';
+import SearchSection from '../components/SearchSection';
 import { useSearchParams } from 'next/navigation';
 
 export function SearchPage() {

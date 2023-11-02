@@ -8,6 +8,8 @@ export type IMediaDBModel = {
   file_location: string;
 };
 
+export type IMediaUpload = Omit<IMediaDBModel, 'id'>;
+
 export type IMediaJSONModel = {
   video?: IVideoJSONModel;
   audio?: IAudioJSONModel;

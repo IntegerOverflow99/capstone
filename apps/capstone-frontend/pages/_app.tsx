@@ -1,5 +1,4 @@
 import {
-  Button,
   CssBaseline,
   Toolbar,
   TextField,
@@ -18,7 +17,9 @@ import {
   ListItemIcon,
   ListItemText,
   Paper,
+  Tooltip,
 } from '@mui/material';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import VideoLibraryIcon from '@mui/icons-material/VideoLibrary';
@@ -132,6 +133,15 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 ),
               }}
             />
+            <Tooltip title="Upload">
+              <IconButton
+                onClick={() => {
+                  router.push('/upload');
+                }}
+              >
+                <CloudUploadIcon fontSize="large" />
+              </IconButton>
+            </Tooltip>
           </Stack>
           <Stack
             direction="row"

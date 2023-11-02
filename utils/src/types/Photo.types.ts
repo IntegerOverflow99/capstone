@@ -37,3 +37,5 @@ export const PhotoGenerator = (
   ]),
   media_id: media_fk,
 });
+
+export type PhotoContentTypes = 'image/jpeg' | 'image/png' | 'image/gif';

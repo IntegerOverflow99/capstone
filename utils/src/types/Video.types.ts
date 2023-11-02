@@ -1,6 +1,14 @@
 import * as Chance from 'chance';
 import dayjs from 'dayjs';
 
+export enum IVideoRatings {
+  G = 'G',
+  PG = 'PG',
+  PG13 = 'PG-13',
+  R = 'R',
+  NC17 = 'NC-17',
+}
+
 export type IVideoDBModel = {
   id: number;
   title: string;
@@ -12,6 +20,11 @@ export type IVideoDBModel = {
   genres: string;
   media_id: number;
   uploaded: string;
+  rating: IVideoRatings;
+};
+
+export type IVideoUpload = Omit<IVideoDBModel, 'id' | 'media_id'> & {
+  tags: string;
 };
 
 export type IVideoJSONModel = {
@@ -54,4 +67,13 @@ export const VideoGenerator = (
   ]),
   media_id: media_fk,
   uploaded: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+  rating: chance.pickone([
+    IVideoRatings.G,
+    IVideoRatings.PG,
+    IVideoRatings.PG13,
+    IVideoRatings.R,
+    IVideoRatings.NC17,
+  ]),
 });
+
+export type VideoContentTypes = 'video/mp4' | 'video/mov';

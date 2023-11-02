@@ -55,6 +55,7 @@ exports.up = function (knex) {
       table.integer('width').notNullable();
       table.integer('height').notNullable();
       table.string('genres').nullable();
+      table.string('rating').nullable();
       table
         .integer('media_id', 10)
         .unsigned()

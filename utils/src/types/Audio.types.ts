@@ -73,3 +73,5 @@ export const AudioGenerator = (
   media_id: media_fk,
   uploaded: dayjs().format('YYYY-MM-DD HH:mm:ss'),
 });
+
+export type AudioContentTypes = 'audio/mpeg' | 'audio/wav';

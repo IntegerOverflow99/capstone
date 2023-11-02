@@ -1,5 +1,5 @@
 import { Video } from '../../entities/Video';
-import { IVideoDBModel } from '../../types/Video.types';
+import { IVideoDBModel, IVideoUpload } from '../../types/Video.types';
 import DataService from './data-service-decorator';
 
 @DataService()
@@ -18,7 +18,7 @@ export class VideoService {
     return res;
   }
 
-  public async addVideo(video: IVideoDBModel) {
+  public async addVideo(video: IVideoUpload & { media_id: number }) {
     const res = (await Video.query().insert(video)) as IVideoDBModel;
     return res;
   }

@@ -17,6 +17,7 @@ const nextConfig = {
     // For other options, see https://nextjs.org/docs/architecture/nextjs-compiler#emotion
     emotion: true,
   },
+  transpilePackages: ['mui-file-input'],
 };
 
 const plugins = [
