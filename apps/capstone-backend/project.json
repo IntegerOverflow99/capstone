@@ -58,6 +58,10 @@
           "codeCoverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/capstone-backend/Dockerfile . -t capstone-backend"
     }
   },
   "tags": []

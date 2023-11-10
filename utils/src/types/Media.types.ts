@@ -15,7 +15,8 @@ export type IMediaJSONModel = {
   audio?: IAudioJSONModel;
   photo?: IPhotoJSONModel;
   id?: number;
-} & IMediaDBModel;
+  fileLocation?: string;
+};
 
 export const MediaGenerator = (chance: Chance.Chance, id: number) => ({
   id: id,

@@ -21,7 +21,7 @@ export class MediaService {
   public async getById(id: number) {
     const res = (await Media.query()
       .findById(id)
-      .withGraphFetched('[audio, video, photo]')) as IMediaDBModel;
+      .withGraphFetched('[audio, video, photo]')) as IMediaJSONModel;
     return res;
   }
 
@@ -53,13 +53,17 @@ export class MediaService {
         'audio:description',
         'like',
         `%${search}%`
-      )) as //   .orWhere('photo.global_tags', 'like', `%${search}%`) //   .orWhere('video.release_year', 'like', `%${search}%`) //   .orWhere('video.genres', 'like', `%${search}%`) //   .orWhere('video.description', 'like', `%${search}%`) //   .orWhere('video.title', 'like', `%${search}%`) //   .orWhere('audio.release_year', 'like', `%${search}%`) //   .orWhere('audio.genres', 'like', `%${search}%`) //   .orWhere('audio.album', 'like', `%${search}%`) //   .orWhere('audio.artist', 'like', `%${search}%`)
-    //   .orWhere(
-    //     'photo.description',
-    //     'like',
-    //     `%${search}%`
-    // )
-    Array<IMediaDBModel>;
+      )) as Array<IMediaDBModel>; // ) //     `%${search}%` //     'like', //     'photo.description', //   .orWhere( //   .orWhere('photo.global_tags', 'like', `%${search}%`) //   .orWhere('video.release_year', 'like', `%${search}%`) //   .orWhere('video.genres', 'like', `%${search}%`) //   .orWhere('video.description', 'like', `%${search}%`) //   .orWhere('video.title', 'like', `%${search}%`) //   .orWhere('audio.release_year', 'like', `%${search}%`) //   .orWhere('audio.genres', 'like', `%${search}%`) //   .orWhere('audio.album', 'like', `%${search}%`) //   .orWhere('audio.artist', 'like', `%${search}%`)
+    return res;
+  }
+
+  public async getMediaByIds(ids: string) {
+    //cryptically, nothing I can do to ids will convert it into an array of numbers, even if done in the controller
+    //so the conversion HAS to be handled via string manipulation, as JSON parsing for some reason STILL passes it as a string
+    const idsArray = ids.replace('[', '').replace(']', '').split(',');
+    const res = (await Media.query()
+      .withGraphJoined('[audio, video, photo]')
+      .whereIn('media.id', idsArray)) as Array<IMediaDBModel>;
     return res;
   }
 }

@@ -28,9 +28,9 @@ export type IVideoUpload = Omit<IVideoDBModel, 'id' | 'media_id'> & {
 };
 
 export type IVideoJSONModel = {
-  id?: number;
-  media_id?: number;
-} & IVideoDBModel;
+  media: { id?: number; file_location?: string };
+  releaseYear?: number;
+} & Omit<IVideoDBModel, 'media_id' | 'release_year'>;
 
 export const VideoGenerator = (
   chance: Chance.Chance,

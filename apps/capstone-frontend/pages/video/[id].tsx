@@ -9,6 +9,7 @@ import {
   Grid,
   Skeleton,
   Stack,
+  Tooltip,
   Typography,
 } from '@mui/material';
 import StarOutlineIcon from '@mui/icons-material/StarOutline';
@@ -22,16 +23,49 @@ const VideoViewPage = () => {
   const [video, setVideo] = useState<IVideoJSONModel>();
   const { id } = router.query;
 
+  //add to the browser local storage to keep track of the most recently viewed media (we care about MEDIA id here)
+  //this will be used to populate the "recently viewed" section on the home page
+  //use video.media.id to get the media id
+
   useEffect(() => {
     const fetchVideo = async () => {
       console.log(id);
       if (!id) return;
       const response = await axios.get(`/video/${id}`);
       setVideo(response.data);
+      // save to local storage
+      const recent = localStorage.getItem('recent');
+      if (recent) {
+        const recentArr = JSON.parse(recent);
+        if (recentArr.length === 15) {
+          recentArr.pop();
+        }
+        recentArr.unshift(response.data.media.id);
+        localStorage.setItem('recent', JSON.stringify(recentArr));
+      } else {
+        localStorage.setItem(
+          'recent',
+          JSON.stringify([response.data.media.id])
+        );
+      }
     };
 
     fetchVideo();
   }, [axios, id]);
+
+  const handleClick = async () => {
+    console.log(video);
+    // if (!video?.media.file_location) return;
+    const response = await axios.get(`/media/${video?.media.id}`);
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${video?.title}.mp4`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <Box>
@@ -43,10 +77,14 @@ const VideoViewPage = () => {
               <Button variant="outlined" startIcon={<StarOutlineIcon />}>
                 Favorite
               </Button>
-              <Button variant="outlined" startIcon={<CloudDownloadIcon />}>
+              <Button
+                variant="outlined"
+                startIcon={<CloudDownloadIcon />}
+                onClick={handleClick}
+              >
                 Download
               </Button>
-              <Button variant="outlined" startIcon={<LiveTvIcon />}>
+              <Button variant="outlined" startIcon={<LiveTvIcon />} disabled>
                 Stream
               </Button>
             </Stack>
@@ -56,26 +94,33 @@ const VideoViewPage = () => {
           <Stack spacing={0}>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               <Typography variant="h4">
-                <strong>{video?.title}</strong>
+                <em>
+                  <strong>{video?.title}</strong>
+                </em>
               </Typography>
             </Box>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              <Typography variant="h5">{video?.description}</Typography>
+              <Typography variant="h5">
+                <em>Description</em> - {video?.description}
+              </Typography>
             </Box>
             <Stack spacing={1} sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               <Typography variant="body1">Genres - {video?.genres}</Typography>
               <Divider />
               <Typography variant="body1">
-                Year - {video?.release_year}
-              </Typography>
-              <Divider />
-              {/* TODO: Rating - {video?.rating}  */}
-              <Typography variant="body1">
-                Runtime - {video?.runtime}
+                <em>Year</em> - {video?.releaseYear}
               </Typography>
               <Divider />
               <Typography variant="body1">
-                Resolution - {video?.width}x{video?.height}
+                <em>Rating</em> - {video?.rating}
+              </Typography>
+              <Divider />
+              <Typography variant="body1">
+                <em>Runtime</em> - {video?.runtime} minutes
+              </Typography>
+              <Divider />
+              <Typography variant="body1">
+                <em>Resolution</em> - {video?.width}x{video?.height}
               </Typography>
             </Stack>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
@@ -92,7 +137,6 @@ const VideoViewPage = () => {
             </Box>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               {/* //TODO: review api data */}
-              <Typography variant="body2">{video?.description}</Typography>
             </Box>
           </Stack>
         </Grid>

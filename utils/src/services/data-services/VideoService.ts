@@ -1,5 +1,9 @@
 import { Video } from '../../entities/Video';
-import { IVideoDBModel, IVideoUpload } from '../../types/Video.types';
+import {
+  IVideoDBModel,
+  IVideoJSONModel,
+  IVideoUpload,
+} from '../../types/Video.types';
 import DataService from './data-service-decorator';
 
 @DataService()
@@ -14,7 +18,7 @@ export class VideoService {
   public async getById(id: number) {
     const res = (await Video.query()
       .findById(id)
-      .withGraphFetched('media')) as IVideoDBModel;
+      .withGraphFetched('media')) as any as IVideoJSONModel;
     return res;
   }
 

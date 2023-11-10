@@ -119,12 +119,24 @@ function CustomApp({ Component, pageProps }: AppProps) {
               width={50}
               height={50}
               style={{ marginLeft: '10px' }}
+              onClick={(e) => {
+                router.push('/');
+              }}
             />
             <Divider orientation="vertical" sx={{ m: 2 }} />
             <TextField
               placeholder="Search"
               variant="outlined"
               sx={{ m: 1 }}
+              value={searchParams.get('q') ?? ''}
+              onChange={(e) => {
+                //update search params in the browser router without reloading the page
+                //https://nextjs.org/docs/routing/dynamic-routes#nextjs-router-object
+                router.push({
+                  pathname: router.pathname,
+                  query: { ...router.query, q: e.target.value },
+                });
+              }}
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
@@ -182,7 +194,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
             }}
           />
           <EasyListItem text="Favorites" />
-          <EasyListItem text="Recents" />
+          <EasyListItem
+            text="Recents"
+            onClick={() => router.push('/recents')}
+          />
           <Divider />
           <EasyListItem
             icon={<LibraryMusicIcon />}

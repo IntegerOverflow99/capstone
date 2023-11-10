@@ -34,7 +34,11 @@ export function SearchPage() {
 
   useEffect(() => {
     const fetchMedia = async () => {
-      const response = await axios.get('/media');
+      //get recents from localstorage
+      const recent = localStorage.getItem('recent');
+      const response = await axios.get(
+        `/media/ids?ids=${JSON.stringify(recent)}`
+      );
       setVideos(
         response.data
           .filter((media: IMediaJSONModel) => !!media.video)

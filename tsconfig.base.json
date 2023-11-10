@@ -16,13 +16,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@capstone/utils/general": ["utils/src/general-utils/index.ts"],
+      "@capstone/knexconfig": ["utils/src/objection-utils/knexconfig.ts"],
       "@capstone/utils/entities": ["utils/src/entities/index.ts"],
+      "@capstone/utils/general": ["utils/src/general-utils/index.ts"],
       "@capstone/utils/inversify": ["utils/src/inversify-utils/index.ts"],
       "@capstone/utils/objection": ["utils/src/objection-utils/*"],
       "@capstone/utils/services": ["utils/src/services/index.ts"],
-      "@capstone/utils/types": ["utils/src/types/index.ts"],
-      "@capstone/knexconfig": ["utils/src/objection-utils/knexconfig.ts"]
+      "@capstone/utils/types": ["utils/src/types/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]
