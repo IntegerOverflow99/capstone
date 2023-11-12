@@ -33,6 +33,9 @@ const SearchSection = (props: SearchSectionProps) => {
   return (
     <Box sx={{ ...sx, m: 2 }}>
       {title && <Typography variant="h4">{title}</Typography>}
+      {data.length === 0 && (
+        <Typography variant="h4">No Results Found!</Typography>
+      )}
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }}>
           <TableHead>

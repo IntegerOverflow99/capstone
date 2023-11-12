@@ -5,6 +5,8 @@ import SimpleGridItem from './SimpleGridItem';
 import { Video } from 'video-metadata-thumbnails';
 import { useAxios } from '@capstone/utils/general';
 import { IVideoRatings, IVideoUpload } from '@capstone/utils/types';
+import { enqueueSnackbar } from 'notistack';
+import { useRouter } from 'next/router';
 
 type VideoUploadFormProps = {
   file: File | null;
@@ -23,6 +25,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
   const [rating, setRating] = useState<string>('');
   const [enableUpload, setEnableUpload] = useState<boolean>(false);
   const axios = useAxios();
+  const router = useRouter();
 
   useEffect(() => {
     const getMetadata = async () => {
@@ -79,12 +82,21 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
       uploaded: dayjs().format('YYYY-MM-DD'),
     };
 
-    await axios.post('/video', file, {
-      params: upload,
-      headers: {
-        'Content-Type': 'video/mp4',
-      },
-    });
+    await axios
+      .post('/video', file, {
+        params: upload,
+        headers: {
+          'Content-Type': file!.type,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          enqueueSnackbar('Upload Successful', { variant: 'success' });
+          router.push('/');
+        } else {
+          enqueueSnackbar('Upload Failed', { variant: 'error' });
+        }
+      });
   };
 
   return (

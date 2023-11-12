@@ -14,8 +14,13 @@ export type IPhotoDBModel = {
 
 export type IPhotoJSONModel = {
   id?: number;
-  media_id?: number;
+  media?: {
+    id: number;
+    file_location: string;
+  };
 } & IPhotoDBModel;
+
+export type IPhotoUpload = Omit<IPhotoDBModel, 'id' | 'media_id'>;
 
 export const PhotoGenerator = (
   chance: Chance.Chance,

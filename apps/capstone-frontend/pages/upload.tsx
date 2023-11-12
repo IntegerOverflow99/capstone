@@ -23,8 +23,8 @@ const UploadPage = () => {
         <Grid item xs={12} md={6}>
           <TextField
             fullWidth
-            label="Title"
-            placeholder="Title"
+            label={fileType === 'image' ? 'Description' : 'Title'}
+            placeholder={fileType === 'image' ? 'Description' : 'Title'}
             value={title}
             onChange={(e) => {
               setTitle(e.target.value);

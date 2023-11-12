@@ -9,15 +9,19 @@ import {
   response,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { PhotoService } from '@capstone/utils/services';
+import { PhotoService, MediaService } from '@capstone/utils/services';
 import BaseController from './BaseController';
+import { IPhotoUpload } from '@capstone/utils/types';
 
 @controller('/photo')
 export class PhotoController
   extends BaseController
   implements interfaces.Controller
 {
-  constructor(@inject('PhotoService') private photoService: PhotoService) {
+  constructor(
+    @inject('PhotoService') private photoService: PhotoService,
+    @inject('MediaService') private mediaService: MediaService
+  ) {
     super();
   }
 
@@ -62,8 +66,15 @@ export class PhotoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    const photo = await this.photoService.addPhoto(req.body);
-    return this.json(photo);
+    const fileExtension = req.get('Content-Type').split('/')[1];
+    const media: Buffer = req.body;
+    const photo = req.query as any as IPhotoUpload;
+    const media_out = await this.mediaService.addMedia(media, fileExtension);
+    const output = await this.photoService.addPhoto({
+      ...photo,
+      media_id: media_out.id,
+    });
+    return this.json(output);
   }
 
   @httpDelete('/:id')

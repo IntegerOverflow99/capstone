@@ -18,6 +18,7 @@ import {
   ListItemText,
   Paper,
   Tooltip,
+  Snackbar,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -36,6 +37,7 @@ import logo from '../assets/logo.jpg';
 import { ReactNode, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
+import { SnackbarProvider } from 'notistack';
 
 interface EasyListItemProps {
   text: string;
@@ -89,164 +91,166 @@ function CustomApp({ Component, pageProps }: AppProps) {
   const searchParams = useSearchParams();
   return (
     <>
-      <Head>
-        <title>Media Server Site</title>
-      </Head>
-      <CssBaseline />
-      <AppBar
-        position="sticky"
-        sx={{
-          backgroundColor: '#a7c',
-          width: '100%',
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-      >
-        <Stack
-          direction="row"
-          sx={{ alignItems: 'center', justifyContent: 'space-between' }}
+      <SnackbarProvider maxSnack={3}>
+        <Head>
+          <title>Media Server Site</title>
+        </Head>
+        <CssBaseline />
+        <AppBar
+          position="sticky"
+          sx={{
+            backgroundColor: '#a7c',
+            width: '100%',
+            zIndex: (theme) => theme.zIndex.drawer + 1,
+          }}
         >
-          <Stack direction="row" sx={{ alignItems: 'center' }}>
-            <IconButton onClick={toggleDrawer}>
-              {drawerOpen ? (
-                <CloseIcon fontSize="large" />
-              ) : (
-                <MenuIcon fontSize="large" />
-              )}
-            </IconButton>
-            <Image
-              src={logo}
-              alt="Logo"
-              width={50}
-              height={50}
-              style={{ marginLeft: '10px' }}
-              onClick={(e) => {
+          <Stack
+            direction="row"
+            sx={{ alignItems: 'center', justifyContent: 'space-between' }}
+          >
+            <Stack direction="row" sx={{ alignItems: 'center' }}>
+              <IconButton onClick={toggleDrawer}>
+                {drawerOpen ? (
+                  <CloseIcon fontSize="large" />
+                ) : (
+                  <MenuIcon fontSize="large" />
+                )}
+              </IconButton>
+              <Image
+                src={logo}
+                alt="Logo"
+                width={50}
+                height={50}
+                style={{ marginLeft: '10px' }}
+                onClick={(e) => {
+                  router.push('/');
+                }}
+              />
+              <Divider orientation="vertical" sx={{ m: 2 }} />
+              <TextField
+                placeholder="Search"
+                variant="outlined"
+                sx={{ m: 1 }}
+                value={searchParams.get('q') ?? ''}
+                onChange={(e) => {
+                  //update search params in the browser router without reloading the page
+                  //https://nextjs.org/docs/routing/dynamic-routes#nextjs-router-object
+                  router.push({
+                    pathname: router.pathname,
+                    query: { ...router.query, q: e.target.value },
+                  });
+                }}
+                InputProps={{
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <SearchIcon />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+              <Tooltip title="Upload">
+                <IconButton
+                  onClick={() => {
+                    router.push('/upload');
+                  }}
+                >
+                  <CloudUploadIcon fontSize="large" />
+                </IconButton>
+              </Tooltip>
+            </Stack>
+            <Stack
+              direction="row"
+              sx={{ alignItems: 'center' }}
+              onClick={() => {
+                console.log('Open profile not implemented');
+              }}
+            >
+              <Typography variant="h6" sx={{ m: 1 }} color="text.secondary">
+                Username
+              </Typography>
+              <IconButton>
+                <AccountCircle fontSize="large" />
+              </IconButton>
+            </Stack>
+          </Stack>
+        </AppBar>
+        <Drawer
+          sx={{
+            width: drawerWidth,
+            flexShrink: 0,
+            '& .MuiDrawer-paper': {
+              width: drawerWidth,
+              boxSizing: 'border-box',
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={drawerOpen}
+        >
+          <Toolbar />
+          <List dense sx={{ mt: 2 }}>
+            <EasyListItem
+              icon={<HomeIcon />}
+              text="Home"
+              onClick={() => {
                 router.push('/');
               }}
             />
-            <Divider orientation="vertical" sx={{ m: 2 }} />
-            <TextField
-              placeholder="Search"
-              variant="outlined"
-              sx={{ m: 1 }}
-              value={searchParams.get('q') ?? ''}
-              onChange={(e) => {
-                //update search params in the browser router without reloading the page
-                //https://nextjs.org/docs/routing/dynamic-routes#nextjs-router-object
-                router.push({
-                  pathname: router.pathname,
-                  query: { ...router.query, q: e.target.value },
-                });
-              }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <SearchIcon />
-                  </InputAdornment>
-                ),
-              }}
+            <EasyListItem text="Favorites" />
+            <EasyListItem
+              text="Recents"
+              onClick={() => router.push('/recents')}
             />
-            <Tooltip title="Upload">
-              <IconButton
-                onClick={() => {
-                  router.push('/upload');
-                }}
-              >
-                <CloudUploadIcon fontSize="large" />
-              </IconButton>
-            </Tooltip>
-          </Stack>
-          <Stack
-            direction="row"
-            sx={{ alignItems: 'center' }}
-            onClick={() => {
-              console.log('Open profile not implemented');
-            }}
-          >
-            <Typography variant="h6" sx={{ m: 1 }} color="text.secondary">
-              Username
-            </Typography>
-            <IconButton>
-              <AccountCircle fontSize="large" />
-            </IconButton>
-          </Stack>
-        </Stack>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          '& .MuiDrawer-paper': {
-            width: drawerWidth,
-            boxSizing: 'border-box',
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={drawerOpen}
-      >
-        <Toolbar />
-        <List dense sx={{ mt: 2 }}>
-          <EasyListItem
-            icon={<HomeIcon />}
-            text="Home"
-            onClick={() => {
-              router.push('/');
-            }}
-          />
-          <EasyListItem text="Favorites" />
-          <EasyListItem
-            text="Recents"
-            onClick={() => router.push('/recents')}
-          />
-          <Divider />
-          <EasyListItem
-            icon={<LibraryMusicIcon />}
-            text="Music"
-            onClick={() => router.push('/audio')}
-          />
-          <EasyListItem text="Favorites" />
-          {/* TODO: add generated genre subcategories */}
-          <Divider />
-          <EasyListItem
-            icon={<CameraIcon />}
-            text="Photos"
-            onClick={() => router.push('/photo')}
-          />
-          <EasyListItem text="Favorites" />
-          {/* <EasyListItem text="Albums" /> */}
-          <Divider />
-          <EasyListItem
-            icon={<VideoLibraryIcon />}
-            text="Videos"
-            onClick={() => router.push('/video')}
-          />
-          <EasyListItem text="Favorites" />
-          {/* <EasyListItem text="Movies" />
+            <Divider />
+            <EasyListItem
+              icon={<LibraryMusicIcon />}
+              text="Music"
+              onClick={() => router.push('/audio')}
+            />
+            <EasyListItem text="Favorites" />
+            {/* TODO: add generated genre subcategories */}
+            <Divider />
+            <EasyListItem
+              icon={<CameraIcon />}
+              text="Photos"
+              onClick={() => router.push('/photo')}
+            />
+            <EasyListItem text="Favorites" />
+            {/* <EasyListItem text="Albums" /> */}
+            <Divider />
+            <EasyListItem
+              icon={<VideoLibraryIcon />}
+              text="Videos"
+              onClick={() => router.push('/video')}
+            />
+            <EasyListItem text="Favorites" />
+            {/* <EasyListItem text="Movies" />
           <EasyListItem text="TV" />
           <EasyListItem text="Home Video" /> */}
-        </List>
-      </Drawer>
-      {/* //margin left should add the width of the drawer if its open */}
-      <Box
-        sx={{
-          marginLeft: drawerOpen ? `${drawerWidth}px` : 'default',
-          transition: (theme) =>
-            theme.transitions.create('margin', {
-              easing: theme.transitions.easing.easeOut,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-        }}
-      >
-        <Paper
-          elevation={12}
+          </List>
+        </Drawer>
+        {/* //margin left should add the width of the drawer if its open */}
+        <Box
           sx={{
-            backgroundColor: 'action.disabled',
+            marginLeft: drawerOpen ? `${drawerWidth}px` : 'default',
+            transition: (theme) =>
+              theme.transitions.create('margin', {
+                easing: theme.transitions.easing.easeOut,
+                duration: theme.transitions.duration.enteringScreen,
+              }),
           }}
-          style={{ maxHeight: 'max(100vh, 100%)' }}
         >
-          <Component {...pageProps} />
-        </Paper>
-      </Box>
+          <Paper
+            elevation={12}
+            sx={{
+              backgroundColor: 'action.disabled',
+            }}
+            style={{ maxHeight: 'max(100vh, 100%)' }}
+          >
+            <Component {...pageProps} />
+          </Paper>
+        </Box>
+      </SnackbarProvider>
     </>
   );
 }

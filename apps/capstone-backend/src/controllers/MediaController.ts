@@ -11,6 +11,9 @@ import {
 import { inject } from 'inversify';
 import { MediaService } from '@capstone/utils/services';
 import BaseController from './BaseController';
+import { access, constants, createReadStream } from 'fs';
+import { extname } from 'path';
+import { lookup } from 'mime-types';
 
 @controller('/media')
 export class MediaController
@@ -75,7 +78,27 @@ export class MediaController
         );
       } else {
         console.log(media);
-        return res.sendFile(media.fileLocation);
+        access(media.fileLocation, constants.F_OK, (err) => {
+          if (err) {
+            console.error('HERE');
+            console.error(err);
+            return this.json(
+              {
+                error: 'Media not found',
+              },
+              404
+            );
+          } else {
+            const stream = createReadStream(media.fileLocation);
+
+            const mime = lookup(extname(media.fileLocation));
+            if (mime) {
+              res.setHeader('Content-Type', mime);
+            }
+
+            stream.pipe(res);
+          }
+        });
       }
     }
   }

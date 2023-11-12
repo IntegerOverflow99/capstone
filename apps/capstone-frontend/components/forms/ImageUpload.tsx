@@ -4,6 +4,10 @@ import EXIF from 'exif-js';
 import exifr from 'exifr';
 import dayjs from 'dayjs';
 import SimpleGridItem from './SimpleGridItem';
+import { IPhotoUpload } from '@capstone/utils/types';
+import { useAxios } from '@capstone/utils/general';
+import { enqueueSnackbar } from 'notistack';
+import { useRouter } from 'next/router';
 
 type ImageUploadFormProps = {
   file: File | null;
@@ -16,6 +20,8 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
   const [height, setHeight] = useState<number>(0);
   const [width, setWidth] = useState<number>(0);
   const [tags, setTags] = useState<string>('');
+  const axios = useAxios();
+  const router = useRouter();
 
   useEffect(() => {
     const getEXIF = async () => {
@@ -35,7 +41,32 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
     getEXIF();
   }, [file]);
 
-  const handleUpload = async () => {};
+  const handleUpload = async () => {
+    let upload: IPhotoUpload = {
+      description: title,
+      uploaded: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+      taken: takenAt,
+      height: height,
+      width: width,
+      global_tags: tags,
+    };
+
+    axios
+      .post('/photo', file, {
+        params: upload,
+        headers: {
+          'Content-Type': file!.type,
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          enqueueSnackbar('Upload Successful', { variant: 'success' });
+          router.push('/');
+        } else {
+          enqueueSnackbar('Upload Failed', { variant: 'error' });
+        }
+      });
+  };
 
   return (
     <>

@@ -18,7 +18,7 @@ export class PhotoService {
     return res;
   }
 
-  public async addPhoto(photo: IPhotoDBModel) {
+  public async addPhoto(photo: Omit<IPhotoDBModel, 'id'>) {
     const res = (await Photo.query().insert(photo)) as IPhotoDBModel;
     return res;
   }
