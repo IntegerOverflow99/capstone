@@ -1,4 +1,4 @@
-import { Box, Button, Grid, TextField } from '@mui/material';
+import { Box, Button, Grid, TextField, Typography } from '@mui/material';
 import { MuiFileInput } from 'mui-file-input';
 import React, { useState, useMemo } from 'react';
 import {
@@ -6,7 +6,6 @@ import {
   VideoUploadForm,
   AudioUploadForm,
 } from '../components/forms';
-import e from 'express';
 
 const UploadPage = () => {
   const [file, setFile] = useState<File | null>(null);
@@ -19,6 +18,7 @@ const UploadPage = () => {
 
   return (
     <Box sx={{ p: 2 }}>
+      <Typography variant="h2">Upload Media</Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
           <TextField

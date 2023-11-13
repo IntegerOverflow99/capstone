@@ -18,6 +18,7 @@ import {
   Divider,
   Tabs,
   Tab,
+  Typography,
 } from '@mui/material';
 import React, { useMemo, useState, useEffect } from 'react';
 import { camelToCapsAndSpaces } from '@capstone/utils/general';
@@ -72,6 +73,7 @@ export function SearchPage() {
     <Box sx={{ flexGrow: 1, p: 5 }}>
       <Container>
         <Paper sx={{ p: 2 }} elevation={20}>
+          <Typography variant="h2">Recently Viewed</Typography>
           <Tabs value={tab} onChange={(e, v) => setTab(v)}>
             <Tab label="Videos" value="video" />
             <Tab label="Photos" value="photo" />

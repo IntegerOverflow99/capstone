@@ -15,7 +15,10 @@ export type IAudioDBModel = {
 
 export type IAudioJSONModel = {
   id?: number;
-  media_id?: number;
+  media?: {
+    id: number;
+    file_location: string;
+  };
 } & IAudioDBModel;
 
 export const AudioGenerator = (
