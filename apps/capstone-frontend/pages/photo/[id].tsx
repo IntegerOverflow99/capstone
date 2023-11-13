@@ -58,10 +58,11 @@ const PhotoViewPage = () => {
         <Grid item md={9}>
           <Stack spacing={0}>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              {photo?.media?.id && (
+              {photo?.media?.id ? (
                 <img src={`http://localhost:3000/media/${photo?.media.id}`} />
+              ) : (
+                <Skeleton variant="rectangular" width="100%" height={400} />
               )}
-              <Skeleton variant="rectangular" width="100%" height={400} />
             </Box>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               <Typography variant="h5">

@@ -11,7 +11,7 @@ import {
 import { inject } from 'inversify';
 import { MediaService } from '@capstone/utils/services';
 import BaseController from './BaseController';
-import { access, constants, createReadStream } from 'fs';
+import { readFile } from 'fs/promises';
 import { extname } from 'path';
 import { lookup } from 'mime-types';
 
@@ -77,28 +77,12 @@ export class MediaController
           404
         );
       } else {
-        console.log(media);
-        access(media.fileLocation, constants.F_OK, (err) => {
-          if (err) {
-            console.error('HERE');
-            console.error(err);
-            return this.json(
-              {
-                error: 'Media not found',
-              },
-              404
-            );
-          } else {
-            const stream = createReadStream(media.fileLocation);
-
-            const mime = lookup(extname(media.fileLocation));
-            if (mime) {
-              res.setHeader('Content-Type', mime);
-            }
-
-            stream.pipe(res);
-          }
-        });
+        //TODO: determine why sendFile does not work - this works for now
+        //get a File object of the media.fileLocation
+        const file = await readFile(media.fileLocation);
+        //edit filename of returned file to be the media's name, and grab the file extension from the media's fileLocation
+        res.setHeader('Content-Type', lookup(extname(media.fileLocation)));
+        res.send(file);
       }
     }
   }

@@ -16,6 +16,7 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
+import { enqueueSnackbar } from 'notistack';
 
 const VideoViewPage = () => {
   const router = useRouter();
@@ -29,7 +30,6 @@ const VideoViewPage = () => {
 
   useEffect(() => {
     const fetchVideo = async () => {
-      console.log(id);
       if (!id) return;
       const response = await axios.get(`/video/${id}`);
       setVideo(response.data);
@@ -54,17 +54,31 @@ const VideoViewPage = () => {
   }, [axios, id]);
 
   const handleClick = async () => {
-    console.log(video);
-    // if (!video?.media.file_location) return;
-    const response = await axios.get(`/media/${video?.media.id}`);
-    const url = window.URL.createObjectURL(new Blob([response.data]));
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `${video?.title}.mp4`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    if (!video?.media.fileLocation) {
+      enqueueSnackbar('No file available. Contact admin.', {
+        variant: 'error',
+      });
+      return;
+    }
+
+    try {
+      const response = await axios.get(`/media/${video?.media.id}`, {
+        responseType: 'blob',
+      });
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${video?.title}`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar('Error downloading file. Please try again later.', {
+        variant: 'error',
+      });
+    }
   };
 
   return (

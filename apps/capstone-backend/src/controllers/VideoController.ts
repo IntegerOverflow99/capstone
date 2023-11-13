@@ -79,7 +79,6 @@ export class VideoController
       ...video,
       media_id: media_out.id,
     });
-    console.log(output);
     return this.json(output);
   }
 
