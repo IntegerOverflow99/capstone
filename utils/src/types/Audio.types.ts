@@ -15,11 +15,14 @@ export type IAudioDBModel = {
 
 export type IAudioJSONModel = {
   id?: number;
+  releaseYear: number;
   media?: {
     id: number;
-    file_location: string;
+    fileLocation: string;
   };
 } & IAudioDBModel;
+
+export type IAudioUpload = Omit<IAudioDBModel, 'id' | 'media_id'>;
 
 export const AudioGenerator = (
   chance: Chance.Chance,

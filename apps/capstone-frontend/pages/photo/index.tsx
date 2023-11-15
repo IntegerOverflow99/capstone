@@ -13,7 +13,7 @@ const PhotoIndex = () => {
       const res = await axios.get('/photo');
       setData(
         res.data.map((photo: IPhotoJSONModel) => {
-          const out: any = { ...photo, ...photo.media };
+          const out: any = { ...photo, ...photo.media, id: photo.id };
           delete out.media;
           return out;
         })

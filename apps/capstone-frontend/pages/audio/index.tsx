@@ -13,7 +13,7 @@ const AudioIndex = () => {
       const res = await axios.get('/audio');
       setData(
         res.data.map((audio: IAudioJSONModel) => {
-          const out: any = { ...audio, ...audio.media };
+          const out: any = { ...audio, ...audio.media, id: audio.id };
           delete out.media;
           return out;
         })

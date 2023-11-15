@@ -1,5 +1,5 @@
 import { Audio } from '../../entities/Audio';
-import { IAudioDBModel } from '../../types/Audio.types';
+import { IAudioDBModel, IAudioUpload } from '../../types/Audio.types';
 import DataService from './data-service-decorator';
 
 @DataService()
@@ -18,7 +18,7 @@ export class AudioService {
     return res;
   }
 
-  public async addAudio(audio: IAudioDBModel) {
+  public async addAudio(audio: IAudioUpload & { media_id: number }) {
     const res = await Audio.query().insert(audio);
     return res;
   }

@@ -9,15 +9,19 @@ import {
   response,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
-import { AudioService } from '@capstone/utils/services';
+import { AudioService, MediaService } from '@capstone/utils/services';
 import BaseController from './BaseController';
+import { IAudioUpload } from '@capstone/utils/types';
 
 @controller('/audio')
 export class AudioController
   extends BaseController
   implements interfaces.Controller
 {
-  constructor(@inject('AudioService') private audioService: AudioService) {
+  constructor(
+    @inject('AudioService') private audioService: AudioService,
+    @inject('MediaService') private mediaService: MediaService
+  ) {
     super();
   }
 
@@ -62,8 +66,15 @@ export class AudioController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    const audio = await this.audioService.addAudio(req.body);
-    return this.json(audio);
+    const fileExtension = req.get('File-Extension');
+    const media: Buffer = req.body;
+    const audio = req.query as any as IAudioUpload;
+    const media_out = await this.mediaService.addMedia(media, fileExtension);
+    const output = await this.audioService.addAudio({
+      ...audio,
+      media_id: media_out.id,
+    });
+    return this.json(output);
   }
 
   @httpDelete('/:id')

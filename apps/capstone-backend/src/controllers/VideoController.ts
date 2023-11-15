@@ -66,9 +66,7 @@ export class VideoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    const fileExtension = req
-      .get('Content-Type')
-      .split('/')[1] as VideoContentTypes;
+    const fileExtension = req.get('File-Extension');
     const media: Buffer = req.body;
     const video = req.query as any as IVideoUpload;
     delete video.tags; //TODO: implement tags

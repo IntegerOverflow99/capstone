@@ -56,6 +56,7 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
         params: upload,
         headers: {
           'Content-Type': file!.type,
+          'File-Extension': file!.name.split('.').pop(),
         },
       })
       .then((response) => {

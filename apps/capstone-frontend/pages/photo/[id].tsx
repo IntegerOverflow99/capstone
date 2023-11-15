@@ -55,7 +55,7 @@ const PhotoViewPage = () => {
   return (
     <Box>
       <Grid container spacing={2}>
-        <Grid item md={9}>
+        <Grid item md={9} sm={12}>
           <Stack spacing={0}>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               {photo?.media?.id ? (
@@ -85,7 +85,7 @@ const PhotoViewPage = () => {
             </Box>
           </Stack>
         </Grid>
-        <Grid item md={3}>
+        <Grid item md={3} sm={12}>
           <Box sx={{ outline: 'solid', m: 0.5 }}>
             <Stack spacing={1} sx={{ p: 2 }}>
               <Button variant="outlined" startIcon={<StarOutlineIcon />}>
@@ -96,16 +96,6 @@ const PhotoViewPage = () => {
               </Button>
             </Stack>
           </Box>
-          <Stack spacing={0}>
-            <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              <Typography variant="h4">
-                <strong>Reviews</strong>
-              </Typography>
-            </Box>
-            <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              {/* //TODO: review api data */}
-            </Box>
-          </Stack>
         </Grid>
       </Grid>
     </Box>

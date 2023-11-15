@@ -2,6 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { Button, Grid, TextField, Typography } from '@mui/material';
 import { parseBlob } from 'music-metadata-browser';
 import SimpleGridItem from './SimpleGridItem';
+import { IAudioUpload } from '@capstone/utils/types';
+import dayjs from 'dayjs';
+import { useAxios } from '@capstone/utils/general';
+import { enqueueSnackbar } from 'notistack';
+import { useRouter } from 'next/router';
 
 type AudioUploadFormProps = {
   file: File | null;
@@ -17,6 +22,8 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
   const [genres, setGenres] = useState<string>('');
   const [tags, setTags] = useState<string>('');
   const [enableUpload, setEnableUpload] = useState<boolean>(false);
+  const axios = useAxios();
+  const router = useRouter();
 
   useEffect(() => {
     const getMetadata = async () => {
@@ -39,6 +46,39 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
       setEnableUpload(false);
     }
   }, [artist, album, length, releaseYear, genres, file]);
+
+  const handleUpload = async () => {
+    let upload: IAudioUpload = {
+      title: title,
+      artist: artist,
+      album: album,
+      length: length,
+      release_year: releaseYear,
+      genres: genres,
+      uploaded: dayjs().format('YYYY-MM-DD HH:mm:ss'),
+    };
+
+    await axios
+      .post('/audio', file, {
+        params: upload,
+        headers: {
+          'Content-Type': file!.type,
+          'File-Extension': file!.name.split('.').pop(),
+        },
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          enqueueSnackbar('Upload successful!', {
+            variant: 'success',
+          });
+          router.push('/');
+        } else {
+          enqueueSnackbar('Upload failed!', {
+            variant: 'error',
+          });
+        }
+      });
+  };
 
   return (
     <>
@@ -70,9 +110,7 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
           label="Length"
           placeholder="Length"
           value={length}
-          onChange={(e) => {
-            setLength(Number(e.target.value));
-          }}
+          disabled
         />
       </SimpleGridItem>
       <SimpleGridItem>
@@ -109,7 +147,12 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
         />
       </SimpleGridItem>
       <Grid item xs={12}>
-        <Button variant="contained" fullWidth disabled>
+        <Button
+          variant="contained"
+          fullWidth
+          disabled={!enableUpload}
+          onClick={handleUpload}
+        >
           Upload
         </Button>
       </Grid>

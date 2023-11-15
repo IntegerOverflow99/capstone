@@ -66,7 +66,7 @@ export class PhotoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    const fileExtension = req.get('Content-Type').split('/')[1];
+    const fileExtension = req.get('File-Extension');
     const media: Buffer = req.body;
     const photo = req.query as any as IPhotoUpload;
     const media_out = await this.mediaService.addMedia(media, fileExtension);

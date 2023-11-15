@@ -87,6 +87,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
         params: upload,
         headers: {
           'Content-Type': file!.type,
+          'File-Extension': file!.name.split('.').pop(),
         },
       })
       .then((response) => {

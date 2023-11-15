@@ -84,7 +84,7 @@ const VideoViewPage = () => {
   return (
     <Box>
       <Grid container spacing={2}>
-        <Grid item md={3}>
+        <Grid item md={3} sm={12}>
           <Box sx={{ outline: 'solid', m: 0.5 }}>
             <Stack spacing={1} sx={{ p: 2 }}>
               <Skeleton variant="rectangular" height={500} />
@@ -104,7 +104,7 @@ const VideoViewPage = () => {
             </Stack>
           </Box>
         </Grid>
-        <Grid item md={6}>
+        <Grid item md={9} sm={12}>
           <Stack spacing={0}>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               <Typography variant="h4">
@@ -139,18 +139,6 @@ const VideoViewPage = () => {
             </Stack>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               <Typography variant="body1">Tags here</Typography>
-            </Box>
-          </Stack>
-        </Grid>
-        <Grid item md={3}>
-          <Stack spacing={0}>
-            <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              <Typography variant="h4">
-                <strong>Reviews</strong>
-              </Typography>
-            </Box>
-            <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              {/* //TODO: review api data */}
             </Box>
           </Stack>
         </Grid>
