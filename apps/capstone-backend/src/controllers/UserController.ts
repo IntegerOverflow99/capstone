@@ -31,30 +31,21 @@ export class UserController
     return users;
   }
 
-  @httpGet('/:id')
+  @httpGet('/:username')
   private async getUser(
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    if (Number.isNaN(Number(req.params.id))) {
+    const user = await this.userService.getByUsername(req.params.username);
+    if (!user) {
       return this.json(
         {
-          error: 'Invalid ID',
+          error: 'User not found',
         },
-        400
+        404
       );
     } else {
-      const user = await this.userService.getById(Number(req.params.id));
-      if (!user) {
-        return this.json(
-          {
-            error: 'User not found',
-          },
-          404
-        );
-      } else {
-        return this.json(user);
-      }
+      return this.json(user);
     }
   }
 

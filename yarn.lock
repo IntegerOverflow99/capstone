@@ -1548,7 +1548,7 @@
   resolved "https://registry.npmjs.org/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@mapbox/node-pre-gyp@^1.0.0":
+"@mapbox/node-pre-gyp@^1.0.0", "@mapbox/node-pre-gyp@^1.0.11":
   version "1.0.11"
   resolved "https://registry.npmjs.org/@mapbox/node-pre-gyp/-/node-pre-gyp-1.0.11.tgz"
   integrity sha512-Yhlar6v9WQgUp/He7BdgzOz8lqMQ8sU+jkCq7Wx8Myc5YFJLbEe7lgui/V7G1qB1DJykHSGwreceSaD60Y0PUQ==
@@ -2343,6 +2343,18 @@
   dependencies:
     "@babel/types" "^7.20.7"
 
+"@types/bcrypt@^5.0.2":
+  version "5.0.2"
+  resolved "https://registry.npmjs.org/@types/bcrypt/-/bcrypt-5.0.2.tgz"
+  integrity sha512-6atioO8Y75fNcbmj0G7UjI9lXN2pQ/IGJ2FWT4a/btd0Lk9lQalHLKhkgKVZ3r+spnmWUKfbMi1GEe9wyHQfNQ==
+  dependencies:
+    "@types/node" "*"
+
+"@types/bcryptjs@^2.4.6":
+  version "2.4.6"
+  resolved "https://registry.npmjs.org/@types/bcryptjs/-/bcryptjs-2.4.6.tgz"
+  integrity sha512-9xlo6R2qDs5uixm0bcIqCeMCE6HiQsIyel9KQySStiyqNl2tnj2mP3DX1Nf56MD6KMenNNlBBsy3LJ7gUEQPXQ==
+
 "@types/body-parser@*":
   version "1.19.2"
   resolved "https://registry.npmjs.org/@types/body-parser/-/body-parser-1.19.2.tgz"
@@ -2510,9 +2522,9 @@
   integrity sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==
 
 "@types/keygrip@*":
-  version "1.0.5"
-  resolved "https://registry.npmjs.org/@types/keygrip/-/keygrip-1.0.5.tgz"
-  integrity sha512-M+BUYYOXgiYoab5L98VpOY1PzmDwWcTkqqu4mdluez5qOTDV0MVPChxhRIPeIFxQgSi3+6qjg1PnGFaGlW373g==
+  version "1.0.6"
+  resolved "https://registry.npmjs.org/@types/keygrip/-/keygrip-1.0.6.tgz"
+  integrity sha512-lZuNAY9xeJt7Bx4t4dx0rYCDqGPW8RXhQZK1td7d4H6E9zYbLoOtjBvfwdTKpsyxQI/2jv+armjX/RW+ZNpXOQ==
 
 "@types/koa-compose@*":
   version "3.2.8"
@@ -2522,9 +2534,9 @@
     "@types/koa" "*"
 
 "@types/koa@*", "@types/koa@^2.13.5":
-  version "2.13.11"
-  resolved "https://registry.npmjs.org/@types/koa/-/koa-2.13.11.tgz"
-  integrity sha512-0HZSGNdmLlLRvSxv0ngLSp09Hw98c+2XL3ZRYmkE6y8grqTweKEyyaj7LgxkyPUv0gQ5pNS/a7kHXo2Iwha1rA==
+  version "2.13.12"
+  resolved "https://registry.npmjs.org/@types/koa/-/koa-2.13.12.tgz"
+  integrity sha512-vAo1KuDSYWFDB4Cs80CHvfmzSQWeUb909aQib0C0aFx4sw0K9UZFz2m5jaEP+b3X1+yr904iQiruS0hXi31jbw==
   dependencies:
     "@types/accepts" "*"
     "@types/content-disposition" "*"
@@ -3525,6 +3537,19 @@ bcrypt-pbkdf@^1.0.0:
   integrity sha512-qeFIXtP4MSoi6NLqO12WfqARWWuCKi2Rn/9hJLEmtB5yTNr9DqFWkJRCf2qShWzPeAMRnOgCrq0sg/KLv5ES9w==
   dependencies:
     tweetnacl "^0.14.3"
+
+bcrypt@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.npmjs.org/bcrypt/-/bcrypt-5.1.1.tgz"
+  integrity sha512-AGBHOG5hPYZ5Xl9KXzU5iKq9516yEmvCKDg3ecP5kX2aB6UqTeXZxk2ELnDgDm6BQSMlLt9rDB4LoSMx0rYwww==
+  dependencies:
+    "@mapbox/node-pre-gyp" "^1.0.11"
+    node-addon-api "^5.0.0"
+
+bcryptjs@^2.4.3:
+  version "2.4.3"
+  resolved "https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.3.tgz"
+  integrity sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ==
 
 big.js@^5.2.2:
   version "5.2.2"
@@ -7895,6 +7920,11 @@ node-addon-api@^4.2.0:
   version "4.3.0"
   resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-4.3.0.tgz"
   integrity sha512-73sE9+3UaLYYFmDsFZnqCInzPyh3MqIwZO9cw58yIqAZhONrrabrYyYe3TuIqtIiOuTXVhsGau8hcrhhwSsDIQ==
+
+node-addon-api@^5.0.0:
+  version "5.1.0"
+  resolved "https://registry.npmjs.org/node-addon-api/-/node-addon-api-5.1.0.tgz"
+  integrity sha512-eh0GgfEkpnoWDq+VY8OyvYhFEzBk6jIYbRKdIlyTiAXIVJ8PyBaKb0rp7oDtoddbdoHWhq8wwr+XZ81F1rpNdA==
 
 node-fetch@^2.6.7:
   version "2.7.0"

@@ -8,6 +8,18 @@ export type IUserDBModel = {
   admin: boolean;
 };
 
+export type IUserJSONModel = {
+  id: number;
+  username: string;
+  passwordHash: string;
+  allowedVideoContentRating: string;
+  admin: boolean;
+};
+
+export type IUserSessionData = {
+  user: Omit<IUserJSONModel, 'passwordHash'> | null;
+};
+
 export const UserGenerator = (chance: Chance.Chance, id: number) => ({
   id: id,
   username: chance.email(),

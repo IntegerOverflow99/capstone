@@ -93,7 +93,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
       .then((response) => {
         if (response.status === 200) {
           enqueueSnackbar('Upload Successful', { variant: 'success' });
-          router.push('/');
+          router.push('/search');
         } else {
           enqueueSnackbar('Upload Failed', { variant: 'error' });
         }

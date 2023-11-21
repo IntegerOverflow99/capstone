@@ -71,7 +71,7 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
           enqueueSnackbar('Upload successful!', {
             variant: 'success',
           });
-          router.push('/');
+          router.push('/search');
         } else {
           enqueueSnackbar('Upload failed!', {
             variant: 'error',

@@ -19,6 +19,7 @@ import {
   Paper,
   Tooltip,
   Snackbar,
+  Button,
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -34,11 +35,11 @@ import Head from 'next/head';
 import { AccountCircle } from '@mui/icons-material';
 import Image from 'next/image';
 import logo from '../assets/logo.jpg';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
 import { SnackbarProvider } from 'notistack';
-
+import { useAxios } from '@capstone/utils/general';
 interface EasyListItemProps {
   text: string;
   icon?: ReactNode;
@@ -89,6 +90,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
   };
   const router = useRouter();
   const searchParams = useSearchParams();
+  const axios = useAxios();
+
+  useEffect(() => {});
+
   return (
     <>
       <SnackbarProvider maxSnack={3}>
@@ -123,7 +128,18 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 height={50}
                 style={{ marginLeft: '10px' }}
                 onClick={(e) => {
-                  router.push('/');
+                  axios.post(
+                    '/api/login',
+                    {
+                      username: 'username',
+                      password: 'password',
+                    },
+                    {
+                      baseURL: '',
+                    }
+                  );
+
+                  // router.push('/search');
                 }}
               />
               <Divider orientation="vertical" sx={{ m: 2 }} />
@@ -141,6 +157,14 @@ function CustomApp({ Component, pageProps }: AppProps) {
                   });
                 }}
                 InputProps={{
+                  onKeyDown: (e) => {
+                    if (e.key === 'Enter') {
+                      router.push({
+                        pathname: '/search',
+                        query: { ...router.query },
+                      });
+                    }
+                  },
                   startAdornment: (
                     <InputAdornment position="start">
                       <SearchIcon />
@@ -158,20 +182,30 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 </IconButton>
               </Tooltip>
             </Stack>
-            <Stack
+            {/* <Stack
               direction="row"
               sx={{ alignItems: 'center' }}
               onClick={() => {
+                axios.post(
+                  '/api/login',
+                  {
+                    username: 'username',
+                    password: 'password',
+                  },
+                  {
+                    baseURL: '',
+                  }
+                );
                 console.log('Open profile not implemented');
               }}
             >
               <Typography variant="h6" sx={{ m: 1 }} color="text.secondary">
-                Username
+                {'Not logged in'}
               </Typography>
               <IconButton>
                 <AccountCircle fontSize="large" />
               </IconButton>
-            </Stack>
+            </Stack> */}
           </Stack>
         </AppBar>
         <Drawer
@@ -193,7 +227,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
               icon={<HomeIcon />}
               text="Home"
               onClick={() => {
-                router.push('/');
+                router.push('/search');
               }}
             />
             <EasyListItem text="Favorites" />
