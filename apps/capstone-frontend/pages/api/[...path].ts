@@ -6,6 +6,7 @@ import axios from 'axios';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // `path` is an array of path segments
   const { path } = req.query;
+  console.log(req.query);
 
   // Join the path segments into a single string
   const pathString = Array.isArray(path) ? path.join('/') : path;
