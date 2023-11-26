@@ -37,7 +37,7 @@ server.setConfig((app) => {
       extended: true,
     })
   );
-  app.use(bodyParser.json());
+  app.use(bodyParser.json({ limit: '50mb' }));
   //bodyparser setup for parsing images, videos, audio
   app.use(bodyParser.raw({ type: 'image/*', limit: '50mb' }));
   app.use(bodyParser.raw({ type: 'video/*', limit: '50mb' }));
