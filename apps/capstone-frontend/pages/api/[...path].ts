@@ -6,13 +6,18 @@ import axios from 'axios';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // `path` is an array of path segments
   const { path } = req.query;
-  console.log(req.query);
+  const method = req.method!.toLowerCase();
 
   // Join the path segments into a single string
   const pathString = Array.isArray(path) ? path.join('/') : path;
 
   const url = `http://localhost:3000/${pathString}`;
-  const response = await axios.get(url);
+  const response = await axios({
+    url,
+    method,
+    data: req.body,
+    headers: req.headers,
+  });
   // console.log(response.headers);
   //forward response back as is - keep in mind this may be a file request, it may be json, it may be plaintext, etc. it shouldnt care about the response type
   res
