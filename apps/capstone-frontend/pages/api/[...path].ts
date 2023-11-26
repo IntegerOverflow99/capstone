@@ -6,6 +6,7 @@ import axios from 'axios';
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   // `path` is an array of path segments
   const { path } = req.query;
+  delete req.query.path;
   const method = req.method!.toLowerCase();
 
   // Join the path segments into a single string
@@ -18,6 +19,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     method,
     data: req.body,
     headers: req.headers,
+    params: req.query,
   });
   // console.log(response.headers);
   //forward response back as is - keep in mind this may be a file request, it may be json, it may be plaintext, etc. it shouldnt care about the response type

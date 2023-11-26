@@ -77,7 +77,6 @@ export class PhotoController
       ...photo,
       media_id: media_out.id,
     });
-    console.log(output);
     return this.json(output);
   }
 
