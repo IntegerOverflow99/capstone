@@ -8,7 +8,7 @@ export function useAxios() {
       baseURL:
         process.env['NODE_ENV'] === 'production'
           ? 'https://capstonemediaserver.ca/api'
-          : 'http://localhost:4200',
+          : 'http://localhost:4200/api',
     })
   );
 
