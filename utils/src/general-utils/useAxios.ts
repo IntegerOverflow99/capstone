@@ -5,11 +5,12 @@ export function useAxios() {
   //create an instance of axios pointed at the api on the same address as this webserver app, on port 3000 rather than the port the webserver is running on
   const { current: instance } = useRef(
     axios.create({
-      baseURL: 'https://localhost:4200',
+      baseURL:
+        process.env['NODE_ENV'] === 'production'
+          ? 'https://localhost:4200'
+          : 'http://localhost:4200',
     })
   );
-
-  console.log(process.env);
 
   return instance;
 }
