@@ -7,7 +7,7 @@ export function useAxios() {
     axios.create({
       baseURL:
         process.env['NODE_ENV'] === 'production'
-          ? 'https://localhost/api'
+          ? 'http://localhost/api'
           : 'http://localhost:4200',
     })
   );
