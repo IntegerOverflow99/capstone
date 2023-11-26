@@ -12,6 +12,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const pathString = Array.isArray(path) ? path.join('/') : path;
 
   const url = `http://localhost:3000/${pathString}`;
+  console.log(pathString);
   const response = await axios({
     url,
     method,
