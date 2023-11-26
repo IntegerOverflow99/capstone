@@ -128,18 +128,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 height={50}
                 style={{ marginLeft: '10px' }}
                 onClick={(e) => {
-                  axios.post(
-                    '/api/login',
-                    {
-                      username: 'username',
-                      password: 'password',
-                    },
-                    {
-                      baseURL: '',
-                    }
-                  );
-
-                  // router.push('/search');
+                  router.push('/search');
                 }}
               />
               <Divider orientation="vertical" sx={{ m: 2 }} />
