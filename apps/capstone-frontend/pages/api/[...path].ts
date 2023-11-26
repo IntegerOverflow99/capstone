@@ -25,7 +25,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   //forward response back as is - keep in mind this may be a file request, it may be json, it may be plaintext, etc. it shouldnt care about the response type
   res
     .status(response.status)
-    .setHeader('Content-Type', response.headers['content-type'] as string)
+    .setHeader('Content-Type', response.headers['Content-Type'] as string)
     .send(response.data);
 };
 
