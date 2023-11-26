@@ -19,6 +19,7 @@ export class PhotoService {
   }
 
   public async addPhoto(photo: Omit<IPhotoDBModel, 'id' | 'fileExtension'>) {
+    console.log('addding photo in service');
     const res = (await Photo.query().insert(photo)) as IPhotoDBModel;
     return res;
   }

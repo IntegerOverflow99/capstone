@@ -26,6 +26,7 @@ export class MediaService {
   }
 
   public async addMedia(media: Buffer, fileExtension: string) {
+    console.log('ADDING MEDIA');
     const rootFileLocation =
       process.env['NODE_ENV'] === 'production' ? '/media' : '/tmp/media';
     const fileLocation = `${rootFileLocation}/${crypto.randomUUID()}.${fileExtension}`;
@@ -33,8 +34,13 @@ export class MediaService {
       file_location: fileLocation,
     } as IMediaUpload;
 
-    //write the file to the file system
-    writeFileSync(fileLocation, media);
+    try {
+      //write the file to the file system
+      writeFileSync(fileLocation, media);
+    } catch (err) {
+      console.log(err);
+      return null;
+    }
 
     const res = (await Media.query().insert(insertMedia)) as IMediaDBModel;
     return res;
