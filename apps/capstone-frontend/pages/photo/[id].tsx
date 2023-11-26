@@ -59,7 +59,13 @@ const PhotoViewPage = () => {
           <Stack spacing={0}>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               {photo?.media?.id ? (
-                <img src={`http://localhost:3000/media/${photo?.media.id}`} />
+                <img
+                  src={
+                    process.env['NODE_ENV'] !== 'production'
+                      ? `http://localhost:3000/media/${photo?.media.id}`
+                      : `https://capstonemediaserver.ca/media/${photo?.media.id}`
+                  }
+                />
               ) : (
                 <Skeleton variant="rectangular" width="100%" height={400} />
               )}
