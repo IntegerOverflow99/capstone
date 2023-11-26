@@ -30,6 +30,8 @@ container.bind('AudioService').to(AudioService);
 
 const server = new InversifyExpressServer(container);
 server.setConfig((app) => {
+  app.use(cors());
+  app.options('*', cors());
   app.use(
     bodyParser.urlencoded({
       extended: true,
@@ -40,7 +42,6 @@ server.setConfig((app) => {
   app.use(bodyParser.raw({ type: 'image/*', limit: '50mb' }));
   app.use(bodyParser.raw({ type: 'video/*', limit: '50mb' }));
   app.use(bodyParser.raw({ type: 'audio/*', limit: '50mb' }));
-  app.use(cors());
 });
 
 const app = server.build();
