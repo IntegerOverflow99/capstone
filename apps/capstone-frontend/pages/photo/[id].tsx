@@ -62,8 +62,8 @@ const PhotoViewPage = () => {
                 <img
                   src={
                     process.env['NODE_ENV'] !== 'production'
-                      ? `http://localhost:3000/media/${photo?.media.id}`
-                      : `https://capstonemediaserver.ca/media/${photo?.media.id}`
+                      ? `http://localhost:4200/api/media/${photo?.media.id}`
+                      : `https://capstonemediaserver.ca/api/media/${photo?.media.id}`
                   }
                 />
               ) : (
