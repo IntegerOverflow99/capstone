@@ -24,6 +24,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 export const config = {
   api: {
     responseLimit: false,
+    bodyParser: {
+      sizeLimit: '50mb',
+    },
   },
 };
 
