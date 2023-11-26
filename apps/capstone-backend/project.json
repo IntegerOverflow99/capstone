@@ -34,8 +34,7 @@
           "buildTarget": "capstone-backend:build:development"
         },
         "production": {
-          "buildTarget": "capstone-backend:build:production",
-          "dev": false
+          "buildTarget": "capstone-backend:build:production"
         }
       }
     },
