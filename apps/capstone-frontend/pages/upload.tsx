@@ -37,10 +37,8 @@ const UploadPage = () => {
             fullWidth
             label="Upload File"
             placeholder="Upload File"
-            //inputprops accept images in normal formats (png, jpg, jpeg, gif), videos (mp4, mov, avi, mkv), and audio (mp3, wav, ogg)
             inputProps={{
-              accept:
-                'image/jpg,image/jpeg,image/png,image/gif,video/mp4,video/mov,audio/mp3,audio/wav',
+              accept: 'image/jpg,image/jpeg,video/mp4,video/mov,audio/mp3',
             }}
             onChange={(newFile: File | null) => {
               setFile(newFile);
