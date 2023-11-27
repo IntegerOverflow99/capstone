@@ -5,7 +5,12 @@ import DataService from './data-service-decorator';
 @DataService()
 export class UserService {
   public async getAll() {
-    const res = (await User.query()) as Array<IUserDBModel>;
+    const res = (await User.query().select(
+      'id',
+      'username',
+      'allowed_video_content_rating',
+      'admin'
+    )) as Array<IUserDBModel>;
     return res;
   }
 
