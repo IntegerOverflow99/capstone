@@ -13,8 +13,20 @@ export const middleware = async (req: NextRequest) => {
     return res;
   } else if (req.nextUrl.pathname.startsWith('/api/login')) {
     return res;
+  } else if (
+    req.nextUrl.pathname.startsWith('/api/admin') &&
+    user?.user?.admin !== true
+  ) {
+    return NextResponse.json({ msg: 'Unauthorized' }, { status: 401 });
   } else if (req.nextUrl.pathname.startsWith('/api') && !user) {
     return NextResponse.json({ msg: 'Unauthorized' }, { status: 401 });
+  } else if (
+    req.nextUrl.pathname.startsWith('/admin') &&
+    user?.user?.admin === false
+  ) {
+    return NextResponse.redirect(new URL('/', req.url), {
+      status: 302,
+    });
   } else if (!user && !req.nextUrl.pathname.startsWith('/_next')) {
     return NextResponse.redirect(new URL('/', req.url), { status: 302 });
   }

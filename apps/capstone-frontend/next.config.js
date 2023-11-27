@@ -21,6 +21,12 @@ const nextConfig = {
   transpilePackages: ['mui-file-input'],
   rewrites: async () => [
     {
+      //rewrite /api/admin/:path* to localhost:3000/:path* - the request will only make it to rewrite if the middleware sees an admin session
+      source: '/api/admin/:path*',
+      destination: 'http://localhost:3000/:path*',
+    },
+    {
+      //rewrite /api/:path* to localhost:3000/:path* - the request will only make it to rewrite if the middleware sees a valid session
       source: '/api/:path*',
       destination: 'http://localhost:3000/:path*',
     },
