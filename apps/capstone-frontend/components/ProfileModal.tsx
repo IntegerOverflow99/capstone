@@ -48,9 +48,11 @@ const ProfileModal = (props: ProfileModalProps) => {
               {session?.user?.allowedVideoContentRating}
             </Typography>
           </Stack>
-          <Button onClick={() => console.log(session)} variant="contained">
-            Admin Page
-          </Button>
+          {session.user?.admin && (
+            <Button onClick={() => router.push('/admin')} variant="contained">
+              Admin Page
+            </Button>
+          )}
           <Button
             onClick={async () => {
               await axios.post('/api/logout', {}, { baseURL: '' });
