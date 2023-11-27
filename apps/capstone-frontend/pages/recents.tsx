@@ -3,6 +3,7 @@ import {
   IAudioJSONModel,
   IMediaJSONModel,
   IPhotoJSONModel,
+  IUserSessionData,
   IVideoJSONModel,
 } from '@capstone/utils/types';
 import {
@@ -24,8 +25,13 @@ import React, { useMemo, useState, useEffect } from 'react';
 import { camelToCapsAndSpaces } from '@capstone/utils/general';
 import SearchSection from '../components/SearchSection';
 import { useSearchParams } from 'next/navigation';
+import { getServerSidePropsSession } from '../lib/SessionContext';
+import ProfileWidget from '../components/ProfileWidget';
 
-export function SearchPage() {
+export const getServerSideProps = getServerSidePropsSession;
+
+export function SearchPage(props: { session: IUserSessionData }) {
+  const { session } = props;
   const axios = useAxios();
   const searchParams = useSearchParams();
   const [videos, setVideos] = useState<IVideoJSONModel[]>([]);
@@ -71,6 +77,7 @@ export function SearchPage() {
 
   return (
     <Box sx={{ flexGrow: 1, p: 5 }}>
+      <ProfileWidget session={session} />
       <Container>
         <Paper sx={{ p: 2 }} elevation={20}>
           <Typography variant="h2">Recently Viewed</Typography>

@@ -16,7 +16,7 @@ export type IPhotoJSONModel = {
   id?: number;
   media?: {
     id: number;
-    file_location: string;
+    fileLocation: string;
   };
 } & IPhotoDBModel;
 

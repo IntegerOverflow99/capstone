@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
-import { IAudioJSONModel } from '@capstone/utils/types';
+import { IAudioJSONModel, IUserSessionData } from '@capstone/utils/types';
 import { useAxios } from '@capstone/utils/general';
 import {
   Box,
@@ -19,9 +19,13 @@ import StarIcon from '@mui/icons-material/Star';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { enqueueSnackbar } from 'notistack';
-import { get } from 'http';
+import { getServerSidePropsSession } from '../../lib/SessionContext';
+import ProfileWidget from '../../components/ProfileWidget';
 
-const AudioViewPage = () => {
+export const getServerSideProps = getServerSidePropsSession;
+
+const AudioViewPage = (props: { session: IUserSessionData }) => {
+  const { session } = props;
   const router = useRouter();
   const axios = useAxios();
   const [audio, setAudio] = useState<IAudioJSONModel>();
@@ -106,6 +110,7 @@ const AudioViewPage = () => {
 
   return (
     <Box>
+      <ProfileWidget session={session} />
       <Grid container spacing={2}>
         <Grid item md={3} sm={12}>
           <Box sx={{ outline: 'solid', m: 0.5 }}>

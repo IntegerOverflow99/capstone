@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { IVideoJSONModel } from '@capstone/utils/types';
+import { IUserSessionData, IVideoJSONModel } from '@capstone/utils/types';
 import { useAxios } from '@capstone/utils/general';
 import {
   Box,
@@ -17,8 +17,13 @@ import StarIcon from '@mui/icons-material/Star';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { enqueueSnackbar } from 'notistack';
+import { getServerSidePropsSession } from '../../lib/SessionContext';
+import ProfileWidget from '../../components/ProfileWidget';
 
-const VideoViewPage = () => {
+export const getServerSideProps = getServerSidePropsSession;
+
+const VideoViewPage = (props: { session: IUserSessionData }) => {
+  const { session } = props;
   const router = useRouter();
   const axios = useAxios();
   const [video, setVideo] = useState<IVideoJSONModel>();
@@ -83,6 +88,7 @@ const VideoViewPage = () => {
 
   return (
     <Box>
+      <ProfileWidget session={session} />
       <Grid container spacing={2}>
         <Grid item md={3} sm={12}>
           <Box sx={{ outline: 'solid', m: 0.5 }}>

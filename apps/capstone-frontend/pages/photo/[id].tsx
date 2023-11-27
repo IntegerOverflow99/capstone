@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { IPhotoJSONModel } from '@capstone/utils/types';
+import { IPhotoJSONModel, IUserSessionData } from '@capstone/utils/types';
 import { useAxios } from '@capstone/utils/general';
 import {
   Box,
@@ -16,8 +16,13 @@ import StarOutlineIcon from '@mui/icons-material/StarOutline';
 import StarIcon from '@mui/icons-material/Star';
 import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
+import { getServerSidePropsSession } from '../../lib/SessionContext';
+import ProfileWidget from '../../components/ProfileWidget';
 
-const PhotoViewPage = () => {
+export const getServerSideProps = getServerSidePropsSession;
+
+const PhotoViewPage = (props: { session: IUserSessionData }) => {
+  const { session } = props;
   const router = useRouter();
   const axios = useAxios();
   const [photo, setPhoto] = useState<IPhotoJSONModel>();
@@ -54,6 +59,7 @@ const PhotoViewPage = () => {
 
   return (
     <Box>
+      <ProfileWidget session={session} />
       <Grid container spacing={2}>
         <Grid item md={9} sm={12}>
           <Stack spacing={0}>
@@ -96,9 +102,6 @@ const PhotoViewPage = () => {
             <Stack spacing={1} sx={{ p: 2 }}>
               <Button variant="outlined" startIcon={<StarOutlineIcon />}>
                 Favorite
-              </Button>
-              <Button variant="outlined" startIcon={<CloudDownloadIcon />}>
-                Download
               </Button>
             </Stack>
           </Box>

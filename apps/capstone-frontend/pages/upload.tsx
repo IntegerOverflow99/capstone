@@ -6,8 +6,14 @@ import {
   VideoUploadForm,
   AudioUploadForm,
 } from '../components/forms';
+import { getServerSidePropsSession } from '../lib/SessionContext';
+import ProfileWidget from '../components/ProfileWidget';
+import { IUserSessionData } from '@capstone/utils/types';
 
-const UploadPage = () => {
+export const getServerSideProps = getServerSidePropsSession;
+
+const UploadPage = (props: { session: IUserSessionData }) => {
+  const { session } = props;
   const [file, setFile] = useState<File | null>(null);
   const fileType = useMemo(() => {
     if (!file) return '';
@@ -18,6 +24,7 @@ const UploadPage = () => {
 
   return (
     <Box sx={{ p: 2 }}>
+      <ProfileWidget session={session} />
       <Typography variant="h2">Upload Media</Typography>
       <Grid container spacing={2}>
         <Grid item xs={12} md={6}>
