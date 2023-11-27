@@ -78,11 +78,16 @@ export class MediaController
         );
       } else {
         //TODO: determine why sendFile does not work - this works for now
+        // res.sendFile(media.fileLocation);
+
         //get a File object of the media.fileLocation
         const file = await readFile(media.fileLocation);
         //edit filename of returned file to be the media's name, and grab the file extension from the media's fileLocation
         res.setHeader('Content-Type', lookup(extname(media.fileLocation)));
-        res.send(file);
+        //need to set content-length header, otherwise the file will not be sent
+        res.setHeader('Content-Length', file.length);
+        //send the file
+        res.status(200).send(file);
       }
     }
   }

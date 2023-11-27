@@ -42,6 +42,10 @@ server.setConfig((app) => {
   app.use(bodyParser.raw({ type: 'image/*', limit: '50mb' }));
   app.use(bodyParser.raw({ type: 'video/*', limit: '50mb' }));
   app.use(bodyParser.raw({ type: 'audio/*', limit: '50mb' }));
+  // app.use((req, res, next) => { // debug middleware
+  //   console.log({ method: req.method, params: req.params, body: req.body });
+  //   next();
+  // });
 });
 
 const app = server.build();

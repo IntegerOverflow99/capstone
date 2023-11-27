@@ -19,6 +19,12 @@ const nextConfig = {
     removeConsole: false,
   },
   transpilePackages: ['mui-file-input'],
+  rewrites: async () => [
+    {
+      source: '/api/:path*',
+      destination: 'http://localhost:3000/:path*',
+    },
+  ],
 };
 
 const plugins = [

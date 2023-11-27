@@ -71,6 +71,7 @@ export class PhotoController
     console.log('PHOTO UPLOAD');
     const fileExtension = req.get('File-Extension');
     const media: Buffer = req.body;
+    //TODO: current problem working on - req.body is empty!
     const photo = req.query as any as IPhotoUpload;
     const media_out = await this.mediaService.addMedia(media, fileExtension);
     const output = await this.photoService.addPhoto({
