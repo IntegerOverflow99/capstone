@@ -19,6 +19,7 @@ import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { enqueueSnackbar } from 'notistack';
 import { getServerSidePropsSession } from '../../lib/SessionContext';
 import ProfileWidget from '../../components/ProfileWidget';
+import { addToFavorites } from 'apps/capstone-frontend/lib/addToFavorites';
 
 export const getServerSideProps = getServerSidePropsSession;
 
@@ -94,7 +95,23 @@ const VideoViewPage = (props: { session: IUserSessionData }) => {
           <Box sx={{ outline: 'solid', m: 0.5 }}>
             <Stack spacing={1} sx={{ p: 2 }}>
               <Skeleton variant="rectangular" height={500} />
-              <Button variant="outlined" startIcon={<StarOutlineIcon />}>
+              <Button
+                variant="outlined"
+                startIcon={<StarOutlineIcon />}
+                onClick={async () => {
+                  (await addToFavorites(
+                    session.user!.id,
+                    video?.media.id!,
+                    axios
+                  ))
+                    ? enqueueSnackbar('Added to favorites!', {
+                        variant: 'success',
+                      })
+                    : enqueueSnackbar('Already in favorites!', {
+                        variant: 'warning',
+                      });
+                }}
+              >
                 Favorite
               </Button>
               <Button

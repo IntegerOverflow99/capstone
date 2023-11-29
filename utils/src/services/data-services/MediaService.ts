@@ -1,5 +1,5 @@
 import { writeFile, writeFileSync } from 'fs';
-import { Media } from '../../entities/Media';
+import { Media, Favorite } from '../../entities';
 import {
   IMediaDBModel,
   IMediaJSONModel,
@@ -16,6 +16,34 @@ export class MediaService {
       '[audio, video, photo]'
     )) as Array<IMediaJSONModel>;
     return res;
+  }
+
+  public async getFavorites(userID: number) {
+    const res = (await Favorite.query()
+      .withGraphFetched('media.[video, audio, photo]')
+      .where('user_id', userID)) as Array<IMediaJSONModel>;
+    return res;
+  }
+
+  public async favoriteMedia(mediaID: number, userID: number) {
+    // const res = await Favorite.query().insert({
+    //   user_id: userID,
+    //   media_id: mediaID,
+    // });
+    // only insert if there is no favorite with user_id and media_id already in the table
+    const check = await Favorite.query().where({
+      user_id: userID,
+      media_id: mediaID,
+    });
+    if (check.length === 0) {
+      const res = await Favorite.query().insert({
+        user_id: userID,
+        media_id: mediaID,
+      });
+      return res;
+    } else {
+      return null;
+    }
   }
 
   public async getById(id: number) {

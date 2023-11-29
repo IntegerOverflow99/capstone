@@ -140,10 +140,18 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 onChange={(e) => {
                   //update search params in the browser router without reloading the page
                   //https://nextjs.org/docs/routing/dynamic-routes#nextjs-router-object
-                  router.push({
+                  router.replace({
                     pathname: router.pathname,
                     query: { ...router.query, q: e.target.value },
                   });
+                }}
+                onKeyUp={(e) => {
+                  if (e.key === 'Enter') {
+                    router.push({
+                      pathname: '/search',
+                      query: { ...router.query },
+                    });
+                  }
                 }}
                 InputProps={{
                   onKeyDown: (e) => {
@@ -171,30 +179,6 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 </IconButton>
               </Tooltip>
             </Stack>
-            {/* <Stack
-              direction="row"
-              sx={{ alignItems: 'center' }}
-              onClick={() => {
-                axios.post(
-                  '/api/login',
-                  {
-                    username: 'username',
-                    password: 'password',
-                  },
-                  {
-                    baseURL: '',
-                  }
-                );
-                console.log('Open profile not implemented');
-              }}
-            >
-              <Typography variant="h6" sx={{ m: 1 }} color="text.secondary">
-                {'Not logged in'}
-              </Typography>
-              <IconButton>
-                <AccountCircle fontSize="large" />
-              </IconButton>
-            </Stack> */}
           </Stack>
         </AppBar>
         <Drawer
@@ -219,7 +203,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
                 router.push('/search');
               }}
             />
-            <EasyListItem text="Favorites" />
+            <EasyListItem
+              text="Favorites"
+              onClick={() => router.push('/favorites')}
+            />
             <EasyListItem
               text="Recents"
               onClick={() => router.push('/recents')}
@@ -230,7 +217,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
               text="Music"
               onClick={() => router.push('/audio')}
             />
-            <EasyListItem text="Favorites" />
+            <EasyListItem
+              text="Favorites"
+              onClick={() => router.push('/favorites?tab=audio')}
+            />
             {/* TODO: add generated genre subcategories */}
             <Divider />
             <EasyListItem
@@ -238,7 +228,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
               text="Photos"
               onClick={() => router.push('/photo')}
             />
-            <EasyListItem text="Favorites" />
+            <EasyListItem
+              text="Favorites"
+              onClick={() => router.push('/favorites?tab=photo')}
+            />
             {/* <EasyListItem text="Albums" /> */}
             <Divider />
             <EasyListItem
@@ -246,7 +239,10 @@ function CustomApp({ Component, pageProps }: AppProps) {
               text="Videos"
               onClick={() => router.push('/video')}
             />
-            <EasyListItem text="Favorites" />
+            <EasyListItem
+              text="Favorites"
+              onClick={() => router.push('/favorites?tab=video')}
+            />
             {/* <EasyListItem text="Movies" />
           <EasyListItem text="TV" />
           <EasyListItem text="Home Video" /> */}

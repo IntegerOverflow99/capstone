@@ -18,6 +18,8 @@ import CloudDownloadIcon from '@mui/icons-material/CloudDownload';
 import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { getServerSidePropsSession } from '../../lib/SessionContext';
 import ProfileWidget from '../../components/ProfileWidget';
+import { addToFavorites } from 'apps/capstone-frontend/lib/addToFavorites';
+import { enqueueSnackbar } from 'notistack';
 
 export const getServerSideProps = getServerSidePropsSession;
 
@@ -100,7 +102,23 @@ const PhotoViewPage = (props: { session: IUserSessionData }) => {
         <Grid item md={3} sm={12}>
           <Box sx={{ outline: 'solid', m: 0.5 }}>
             <Stack spacing={1} sx={{ p: 2 }}>
-              <Button variant="outlined" startIcon={<StarOutlineIcon />}>
+              <Button
+                variant="outlined"
+                startIcon={<StarOutlineIcon />}
+                onClick={async () => {
+                  (await addToFavorites(
+                    session!.user!.id!,
+                    photo!.media!.id!,
+                    axios
+                  ))
+                    ? enqueueSnackbar('Added to favorites', {
+                        variant: 'success',
+                      })
+                    : enqueueSnackbar('Already in favorites', {
+                        variant: 'warning',
+                      });
+                }}
+              >
                 Favorite
               </Button>
             </Stack>

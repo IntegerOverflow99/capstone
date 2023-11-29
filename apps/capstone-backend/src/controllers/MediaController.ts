@@ -44,6 +44,44 @@ export class MediaController
     return media;
   }
 
+  @httpGet('/favorites/:userID')
+  private async getFavorites(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    const rawFavorites = (
+      await this.mediaService.getFavorites(Number(req.params.userID))
+    ).map((favorite: any) => ({
+      video: favorite.media.video,
+      audio: favorite.media.audio,
+      photo: favorite.media.photo,
+    }));
+    const favorites = {
+      video: rawFavorites
+        .filter((favorite) => favorite.video !== null)
+        .map((favorite) => favorite.video),
+      audio: rawFavorites
+        .filter((favorite) => favorite.audio !== null)
+        .map((favorite) => favorite.audio),
+      photo: rawFavorites
+        .filter((favorite) => favorite.photo !== null)
+        .map((favorite) => favorite.photo),
+    };
+    return favorites;
+  }
+
+  @httpPost('/favorite/:id')
+  private async favoriteMedia(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    const media = await this.mediaService.favoriteMedia(
+      Number(req.params.id),
+      req.body.userID
+    );
+    return media;
+  }
+
   @httpGet('/search')
   private async searchMedia(
     @request() req: express.Request,
