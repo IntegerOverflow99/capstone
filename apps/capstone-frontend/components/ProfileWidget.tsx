@@ -1,6 +1,6 @@
 import { IUserSessionData } from '@capstone/utils/types';
 import React from 'react';
-import { Card, IconButton, Stack, Typography } from '@mui/material';
+import { Card, IconButton, Stack, Theme, Typography } from '@mui/material';
 import { AccountCircle } from '@mui/icons-material';
 import { useAxios } from '@capstone/utils/general';
 import ProfileModal from './ProfileModal';
@@ -37,7 +37,12 @@ const ProfileWidget = (props: ProfileWidgetProps) => {
       }}
     >
       <Stack direction="row" sx={{ alignItems: 'center' }}>
-        <Typography variant="h6" sx={{ m: 1 }} color="text.secondary">
+        <Typography
+          variant="h6"
+          sx={{ m: 1 }}
+          color="text.secondary"
+          display={{ sm: 'none', md: 'block' }}
+        >
           {session?.user?.username || 'Log In'}
         </Typography>
         <IconButton>
