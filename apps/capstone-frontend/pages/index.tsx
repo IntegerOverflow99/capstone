@@ -74,7 +74,12 @@ const SignInPage = (props: { session: any }) => {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Stack>
-        <Button variant="contained" color="primary" onClick={handleSignIn}>
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          onClick={handleSignIn}
+        >
           Sign In
         </Button>
       </Container>

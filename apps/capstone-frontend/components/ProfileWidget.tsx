@@ -43,7 +43,7 @@ const ProfileWidget = (props: ProfileWidgetProps) => {
           color="text.secondary"
           display={{ sm: 'none', md: 'block' }}
         >
-          {session?.user?.username || 'Log In'}
+          {session?.user?.username || 'Click to Log In'}
         </Typography>
         <IconButton>
           <AccountCircle fontSize="large" />
