@@ -7,6 +7,7 @@ import {
   httpDelete,
   request,
   response,
+  httpPut,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
 import { AudioService, MediaService } from '@capstone/utils/services';
@@ -75,6 +76,36 @@ export class AudioController
       media_id: media_out.id,
     });
     return this.json(output);
+  }
+
+  @httpPut('/:id')
+  private async updateAudio(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    if (Number.isNaN(Number(req.params.id))) {
+      return this.json(
+        {
+          error: 'Invalid ID',
+        },
+        400
+      );
+    } else {
+      const audio = await this.audioService.updateAudio(
+        Number(req.params.id),
+        req.body
+      );
+      if (!audio) {
+        return this.json(
+          {
+            error: 'Audio not found',
+          },
+          404
+        );
+      } else {
+        return this.json(audio);
+      }
+    }
   }
 
   @httpDelete('/:id')

@@ -31,4 +31,9 @@ export class VideoService {
     const res = await Video.query().deleteById(id);
     return res >= 1;
   }
+
+  public async updateVideo(id: number, video: IVideoUpload) {
+    const res = await Video.query().patchAndFetchById(id, video);
+    return res;
+  }
 }

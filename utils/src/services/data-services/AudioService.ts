@@ -27,4 +27,9 @@ export class AudioService {
     const res = await Audio.query().deleteById(id);
     return res >= 1;
   }
+
+  public async updateAudio(id: number, audio: IAudioUpload) {
+    const res = await Audio.query().patchAndFetchById(id, audio);
+    return res;
+  }
 }

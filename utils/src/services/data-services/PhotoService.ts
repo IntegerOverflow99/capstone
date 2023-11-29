@@ -28,4 +28,9 @@ export class PhotoService {
     const res = await Photo.query().deleteById(id);
     return res >= 1;
   }
+
+  public async updatePhoto(id: number, photo: IPhotoDBModel) {
+    const res = await Photo.query().patchAndFetchById(id, photo);
+    return res;
+  }
 }

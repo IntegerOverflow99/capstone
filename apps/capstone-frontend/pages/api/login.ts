@@ -10,7 +10,7 @@ async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   const URL = `http://localhost:3000/user/${username}`;
   const response = await axios.get(URL);
 
-  const userData = response.data as IUserJSONModel;
+  const userData = response.data as IUserJSONModel & { passwordHash: string };
 
   const match = await bcrypt.compare(password, userData.passwordHash);
   const sessionData: any = response.data;

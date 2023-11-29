@@ -32,7 +32,20 @@ export class UserService {
   }
 
   public async deleteUser(id: number) {
+    //need to set foreign key constraints to cascade on delete
+    await User.knex().raw('SET FOREIGN_KEY_CHECKS = 0');
     const res = await User.query().deleteById(id);
+    await User.knex().raw('SET FOREIGN_KEY_CHECKS = 1');
+
+    // const res = await User.query().deleteById(id);
     return res >= 1;
+  }
+
+  public async updateUser(id: number, user: IUserDBModel) {
+    const res = (await User.query().patchAndFetchById(
+      id,
+      user
+    )) as IUserDBModel;
+    return res;
   }
 }

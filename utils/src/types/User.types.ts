@@ -11,7 +11,6 @@ export type IUserDBModel = {
 export type IUserJSONModel = {
   id: number;
   username: string;
-  passwordHash: string;
   allowedVideoContentRating: string;
   admin: boolean;
 };

@@ -27,6 +27,11 @@ export type IVideoUpload = Omit<IVideoDBModel, 'id' | 'media_id'> & {
   tags: string;
 };
 
+export type IVideoEditValues = Omit<
+  IVideoDBModel,
+  'media_id' | 'release_year'
+> & { releaseYear: number };
+
 export type IVideoJSONModel = {
   media: { id?: number; fileLocation?: string };
   releaseYear?: number;

@@ -7,6 +7,7 @@ import {
   httpDelete,
   request,
   response,
+  httpPut,
 } from 'inversify-express-utils';
 import { inject } from 'inversify';
 import { MediaService, VideoService } from '@capstone/utils/services';
@@ -78,6 +79,36 @@ export class VideoController
       media_id: media_out.id,
     });
     return this.json(output);
+  }
+
+  @httpPut('/:id')
+  private async updateVideo(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    if (Number.isNaN(Number(req.params.id))) {
+      return this.json(
+        {
+          error: 'Invalid ID',
+        },
+        400
+      );
+    } else {
+      const video = await this.videoService.updateVideo(
+        Number(req.params.id),
+        req.body
+      );
+      if (!video) {
+        return this.json(
+          {
+            error: 'Video not found',
+          },
+          404
+        );
+      } else {
+        return this.json(video);
+      }
+    }
   }
 
   @httpDelete('/:id')

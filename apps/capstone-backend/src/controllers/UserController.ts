@@ -79,6 +79,37 @@ export class UserController
     }
   }
 
+  @httpPut('/:id')
+  private async updateUser(
+    @request() req: express.Request,
+    @response() res: express.Response
+  ) {
+    if (Number.isNaN(Number(req.params.id))) {
+      return this.json(
+        {
+          error: 'Invalid ID',
+        },
+        400
+      );
+    } else {
+      const user = await this.userService.getById(Number(req.params.id));
+      if (!user) {
+        return this.json(
+          {
+            error: 'User not found',
+          },
+          404
+        );
+      } else {
+        const updated = await this.userService.updateUser(
+          Number(req.params.id),
+          req.body
+        );
+        return this.json(updated);
+      }
+    }
+  }
+
   @httpPost('/')
   private async addUser(
     @request() req: express.Request,
