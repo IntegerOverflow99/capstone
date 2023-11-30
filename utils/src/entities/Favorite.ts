@@ -4,6 +4,10 @@ import { TableNames } from './TableNames';
 import { Media } from './Media';
 import { User } from './User';
 
+/**
+ * ObjectionJS model for Favorite table.
+ * Models a single favorite entry, and its relations.
+ */
 export class Favorite extends BaseEntity implements IFavoriteDBModel {
   static override get tableName() {
     return TableNames.FAVORITES;

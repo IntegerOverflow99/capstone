@@ -6,8 +6,14 @@ import { useAxios } from '@capstone/utils/general';
 import { getServerSidePropsSession } from '../../lib/SessionContext';
 import ProfileWidget from '../../components/ProfileWidget';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * Video Index Page - allows for searching and filtering of video files
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 const VideoIndex = (props: { session: IUserSessionData }) => {
   const { session } = props;
   const [data, setData] = useState<IVideoJSONModel[]>([]);

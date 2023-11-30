@@ -5,6 +5,10 @@ import { AccessLog } from './AccessLog';
 import { Favorite } from './Favorite';
 import { CustomTag } from './CustomTag';
 
+/**
+ * ObjectionJS model for User table.
+ * Models a single user entry, and its relations.
+ */
 export class User extends BaseEntity implements IUserDBModel {
   static override get tableName() {
     return TableNames.USERS;

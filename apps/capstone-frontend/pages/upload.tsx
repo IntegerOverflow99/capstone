@@ -11,8 +11,14 @@ import ProfileWidget from '../components/ProfileWidget';
 import { IUserSessionData } from '@capstone/utils/types';
 import { enqueueSnackbar } from 'notistack';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * Upload Page - allows for uploading of media files
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 const UploadPage = (props: { session: IUserSessionData }) => {
   const { session } = props;
   const [file, setFile] = useState<File | null>(null);

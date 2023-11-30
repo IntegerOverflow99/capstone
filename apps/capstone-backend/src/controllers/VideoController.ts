@@ -14,11 +14,21 @@ import { MediaService, VideoService } from '@capstone/utils/services';
 import BaseController from './BaseController';
 import { IVideoUpload, VideoContentTypes } from '@capstone/utils/types';
 
+/**
+ * Video Controller
+ * Handles all requests to the /video endpoint
+ */
 @controller('/video')
 export class VideoController
   extends BaseController
   implements interfaces.Controller
 {
+  /**
+   * Video Controller Constructor - should only ever be called by the Inversify IoC Container
+   * @param videoService The injected VideoService
+   * @param mediaService The injected MediaService
+   * @returns A new VideoController
+   */
   constructor(
     @inject('VideoService') private videoService: VideoService,
     @inject('MediaService') private mediaService: MediaService
@@ -26,6 +36,12 @@ export class VideoController
     super();
   }
 
+  /**
+   * Grab all videos on the site
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns A list of all videos on the site
+   */
   @httpGet('/')
   private async getAllVideos(
     @request() req: express.Request,
@@ -35,6 +51,13 @@ export class VideoController
     return videos;
   }
 
+  /**
+   * Grab a single video by its ID
+   * Expects the ID in its url, e.g. /video/1
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns The video with the given ID, or an error if the ID is invalid or the video doesn't exist
+   */
   @httpGet('/:id')
   private async getVideo(
     @request() req: express.Request,
@@ -62,6 +85,14 @@ export class VideoController
     }
   }
 
+  /**
+   * Adds a new video to the site
+   * Expects the query pararmeters to match the IVideoUpload interface
+   * Expects the media to be in the body of the request
+   * @param req the incoming HTTP request
+   * @param res the outgoing HTTP response
+   * @returns the newly created video, or an error if the video could not be created
+   */
   @httpPost('/')
   private async addVideo(
     @request() req: express.Request,
@@ -80,6 +111,14 @@ export class VideoController
     return this.json(output);
   }
 
+  /**
+   * Updates a single video by its ID
+   * Expects the ID in its url, e.g. /video/1
+   * Expects the body of the request to match the IVideoUpload interface
+   * @param req the incoming HTTP request
+   * @param res the outgoing HTTP response
+   * @returns the newly updated video, or an error if the video doesn't exist
+   */
   @httpPut('/:id')
   private async updateVideo(
     @request() req: express.Request,
@@ -110,6 +149,13 @@ export class VideoController
     }
   }
 
+  /**
+   * Deletes a single video by its ID
+   * Expects the ID in its url, e.g. /video/1
+   * @param req the incoming HTTP request
+   * @param res the outgoing HTTP response
+   * @returns the deleted video, or an error if the video doesn't exist
+   */
   @httpDelete('/:id')
   private async deleteVideo(
     @request() req: express.Request,

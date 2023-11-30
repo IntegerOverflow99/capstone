@@ -28,8 +28,14 @@ import { useRouter } from 'next/router';
 import { getServerSidePropsSession } from '../lib/SessionContext';
 import ProfileWidget from '../components/ProfileWidget';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * Favorites Page - allows for searching and filtering of favorited media, same as the search page
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 export function FavoritesPage(props: { session: IUserSessionData }) {
   const { session } = props;
   const axios = useAxios();

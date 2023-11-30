@@ -6,8 +6,14 @@ import { useAxios } from '@capstone/utils/general';
 import { getServerSidePropsSession } from '../../lib/SessionContext';
 import ProfileWidget from '../../components/ProfileWidget';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * The Audio Index Page - allows for searching and filtering of audio files, and viewing of metadata
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 const AudioIndex = (props: { session: IUserSessionData }) => {
   const { session } = props;
   const [data, setData] = useState<IAudioJSONModel[]>([]);

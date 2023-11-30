@@ -27,8 +27,14 @@ import UserAdmin from '../components/UserAdmin';
 import MediaAdmin from '../components/MediaAdmin';
 import AudioEdit from '../components/forms/AudioEdit';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * Admin Page - allows for searching, filtering, editing and deleting of all media and users.
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 const AdminPage = (props: { session: IUserSessionData }) => {
   const { session } = props;
   const axios = useAxios();
@@ -36,7 +42,6 @@ const AdminPage = (props: { session: IUserSessionData }) => {
   const [users, setUsers] = useState<IUserJSONModel[]>([]);
   const [userSection, setUserSection] = useState(false);
   const [mediaSection, setMediaSection] = useState(false);
-  const [selectedUser, setSelectedUser] = useState<IUserJSONModel | null>();
 
   useEffect(() => {
     const fetchUsers = async () => {

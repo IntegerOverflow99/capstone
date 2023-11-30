@@ -3,6 +3,11 @@ import { NextRequest } from 'next/server';
 import { getIronSession } from 'iron-session/edge';
 import { sessionOptions } from './lib/session';
 
+/**
+ * Filters requests to the app by checking the session ensuring authorization when navigating the site pages, and requesting data from the API.
+ * @param req The incoming request
+ * @returns The response to the request
+ */
 export const middleware = async (req: NextRequest) => {
   const res = NextResponse.next();
   const { user } = await getIronSession(req, res, sessionOptions);

@@ -4,6 +4,10 @@ import { TableNames } from './TableNames';
 import { Media } from './Media';
 import { IVideoRatings } from '../types';
 
+/**
+ * ObjectionJS model for Video table.
+ * Models a single video entry, and its relations.
+ */
 export class Video extends BaseEntity implements IVideoDBModel {
   static override get tableName() {
     return TableNames.VIDEOS;

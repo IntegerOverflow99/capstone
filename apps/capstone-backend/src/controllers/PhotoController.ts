@@ -14,11 +14,21 @@ import { PhotoService, MediaService } from '@capstone/utils/services';
 import BaseController from './BaseController';
 import { IPhotoUpload } from '@capstone/utils/types';
 
+/**
+ * Audio Controller
+ * Handles all requests to the /audio endpoint
+ */
 @controller('/photo')
 export class PhotoController
   extends BaseController
   implements interfaces.Controller
 {
+  /**
+   * Audio Controller Constructor - should only ever be called by the Inversify IoC Container
+   * @param audioService The injected AudioService
+   * @param mediaService The injected MediaService
+   * @returns A new AudioController
+   */
   constructor(
     @inject('PhotoService') private photoService: PhotoService,
     @inject('MediaService') private mediaService: MediaService
@@ -26,6 +36,12 @@ export class PhotoController
     super();
   }
 
+  /**
+   * Get all photos on the site
+   * @param req the incoming HTTP request
+   * @param res the outgoing HTTP response
+   * @returns A list of all photos on the site
+   */
   @httpGet('/')
   private async getAllPhotos(
     @request() req: express.Request,
@@ -35,6 +51,13 @@ export class PhotoController
     return photos;
   }
 
+  /**
+   * Get a single photo by its ID
+   * Expects the ID in its url, e.g. /photo/1
+   * @param req the incoming HTTP request
+   * @param res the outgoing HTTP response
+   * @returns A single photo with the given ID
+   */
   @httpGet('/:id')
   private async getPhoto(
     @request() req: express.Request,
@@ -62,6 +85,14 @@ export class PhotoController
     }
   }
 
+  /**
+   * Add a new photo to the site
+   * Expects query params matching IPhotoUpload
+   * Expects a binary body matching the media file
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns The newly created photo
+   */
   @httpPost('/')
   private async addPhoto(
     @request() req: express.Request,
@@ -78,6 +109,13 @@ export class PhotoController
     return this.json(output);
   }
 
+  /**
+   * Update a photo's data
+   * Expects a JSON body matching IPhotoUpload
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns The newly updated photo
+   */
   @httpPut('/:id')
   private async updatePhoto(
     @request() req: express.Request,
@@ -108,6 +146,13 @@ export class PhotoController
     }
   }
 
+  /**
+   * Delete a photo from the site
+   * Expects the ID in its url, e.g. /photo/1
+   * @param req the incoming HTTP request
+   * @param res the outgoing HTTP response
+   * @returns The deleted photo
+   */
   @httpDelete('/:id')
   private async deletePhoto(
     @request() req: express.Request,

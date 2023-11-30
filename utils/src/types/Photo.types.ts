@@ -1,6 +1,9 @@
 import * as Chance from 'chance';
 import dayjs, { Dayjs } from 'dayjs';
 
+/**
+ * Database Model of Photo Table
+ */
 export type IPhotoDBModel = {
   id: number;
   description: string;
@@ -12,6 +15,9 @@ export type IPhotoDBModel = {
   media_id: number;
 };
 
+/**
+ * JSON Model of Photo Table for API responses
+ */
 export type IPhotoJSONModel = {
   id?: number;
   media?: {
@@ -20,8 +26,18 @@ export type IPhotoJSONModel = {
   };
 } & IPhotoDBModel;
 
+/**
+ * Photo object for uploading to the database
+ */
 export type IPhotoUpload = Omit<IPhotoDBModel, 'id' | 'media_id'>;
 
+/**
+ * Generates a fake photo object for database seeding while testing.
+ * @param chance Chance instance
+ * @param id ID of the photo
+ * @param media_fk the media foreign key
+ * @returns A fake photo object
+ */
 export const PhotoGenerator = (
   chance: Chance.Chance,
   id: number,

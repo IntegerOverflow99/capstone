@@ -14,11 +14,21 @@ import { AudioService, MediaService } from '@capstone/utils/services';
 import BaseController from './BaseController';
 import { IAudioUpload } from '@capstone/utils/types';
 
+/**
+ * Audio Controller
+ * Handles all requests to the /audio endpoint
+ */
 @controller('/audio')
 export class AudioController
   extends BaseController
   implements interfaces.Controller
 {
+  /**
+   * Audio Controller Constructor - should only ever be called by the Inversify IoC Container
+   * @param audioService The injected AudioService
+   * @param mediaService The injected MediaService
+   * @returns A new AudioController
+   */
   constructor(
     @inject('AudioService') private audioService: AudioService,
     @inject('MediaService') private mediaService: MediaService
@@ -26,6 +36,12 @@ export class AudioController
     super();
   }
 
+  /**
+   * Grab all audio on the site
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns A list of all audio on the site
+   */
   @httpGet('/')
   private async getAllAudios(
     @request() req: express.Request,
@@ -35,6 +51,13 @@ export class AudioController
     return audios;
   }
 
+  /**
+   * Grab a single audio by its ID
+   * Expects the ID in its url, e.g. /audio/1
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns The audio with the given ID
+   */
   @httpGet('/:id')
   private async getAudio(
     @request() req: express.Request,
@@ -62,6 +85,15 @@ export class AudioController
     }
   }
 
+  /**
+   * Add a new audio to the site
+   * Expects query params with the audio's data, IAudioUpload
+   * Expects a File-Extension header with the audio's file extension
+   * Expects a binary body matching the media file
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns The newly created audio
+   */
   @httpPost('/')
   private async addAudio(
     @request() req: express.Request,
@@ -78,6 +110,14 @@ export class AudioController
     return this.json(output);
   }
 
+  /**
+   * Update an audio on the site
+   * Expects the ID in its url, e.g. /audio/1
+   * Expects a JSON body with the audio's data, IAudioUpload
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns The updated audio
+   */
   @httpPut('/:id')
   private async updateAudio(
     @request() req: express.Request,
@@ -108,6 +148,13 @@ export class AudioController
     }
   }
 
+  /**
+   * Delete an audio from the site
+   * Expects the ID in its url, e.g. /audio/1
+   * @param req The incoming HTTP request
+   * @param res The outgoing HTTP response
+   * @returns The deleted audio
+   */
   @httpDelete('/:id')
   private async deleteAudio(
     @request() req: express.Request,

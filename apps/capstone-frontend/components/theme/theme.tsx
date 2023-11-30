@@ -1,5 +1,8 @@
 import { createTheme, ThemeOptions } from '@mui/material';
 
+/**
+ * Theme object to set application colors - see https://mui.com/customization/default-theme/ for more information
+ */
 export const themeObj: ThemeOptions = {
   palette: {
     mode: 'dark',

@@ -3,6 +3,10 @@ import BaseEntity from './BaseEntity';
 import { TableNames } from './TableNames';
 import { Media } from './Media';
 
+/**
+ * ObjectionJS model for Photo table.
+ * Models a single photo entry, and its relations.
+ */
 export class Photo extends BaseEntity implements IPhotoDBModel {
   static override get tableName() {
     return TableNames.PHOTOS;

@@ -4,6 +4,11 @@ import { TableNames } from './TableNames';
 import { Media } from './Media';
 import { CustomTag } from './CustomTag';
 
+/**
+ * ObjectionJS model for TaggedMedia table.
+ * Models a single tagged media entry, and its relations.
+ * @deprecated Out of scope for v1.
+ */
 export class TaggedMedia extends BaseEntity implements ITaggedMediaDBModel {
   static override get tableName() {
     return TableNames.TAGGED_MEDIA;

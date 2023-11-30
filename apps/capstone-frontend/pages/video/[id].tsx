@@ -21,8 +21,14 @@ import { getServerSidePropsSession } from '../../lib/SessionContext';
 import ProfileWidget from '../../components/ProfileWidget';
 import { addToFavorites } from 'apps/capstone-frontend/lib/addToFavorites';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * Video Single File View Page - allows for downloading of video files and viewing of metadata
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 const VideoViewPage = (props: { session: IUserSessionData }) => {
   const { session } = props;
   const router = useRouter();

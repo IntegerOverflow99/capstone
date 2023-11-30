@@ -14,12 +14,20 @@ import { enqueueSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
+/**
+ * Props for the VideoEdit component
+ */
 type VideoEditProps = {
   open: boolean;
   onClose: () => void;
   row?: IVideoEditValues;
 };
 
+/**
+ * Video Editing Form
+ * @param props VideoEditProps
+ * @returns React.FC
+ */
 const VideoEdit = (props: VideoEditProps) => {
   const { open, onClose, row } = props;
   const [title, setTitle] = useState<string>(row?.title || '');

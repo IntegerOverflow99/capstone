@@ -1,8 +1,11 @@
 import axios from 'axios';
 import { useRef } from 'react';
 
+/**
+ * A react hook that returns a safe to use axios instance
+ * @returns a ref to an axios instance pointed at the api
+ */
 export function useAxios() {
-  //create an instance of axios pointed at the api on the same address as this webserver app, on port 3000 rather than the port the webserver is running on
   const { current: instance } = useRef(
     axios.create({
       baseURL:

@@ -27,8 +27,14 @@ import { useSearchParams } from 'next/navigation';
 import { getServerSidePropsSession } from '../lib/SessionContext';
 import ProfileWidget from '../components/ProfileWidget';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * Search Page - allows for searching and filtering of all media
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 export function SearchPage(props: { session: IUserSessionData }) {
   const { session } = props;
   const axios = useAxios();

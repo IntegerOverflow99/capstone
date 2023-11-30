@@ -9,3 +9,5 @@ export * from './Photo';
 export * from './TaggedMedia';
 export * from './User';
 export * from './Video';
+
+// barrel file for entities

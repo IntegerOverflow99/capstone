@@ -9,6 +9,9 @@ import {
 import { useRouter } from 'next/router';
 import { DataGrid } from '@mui/x-data-grid';
 
+/**
+ * Props for the SearchSection component
+ */
 type SearchSectionProps = {
   title?: string;
   data: IVideoJSONModel[] | IAudioJSONModel[] | IPhotoJSONModel[];
@@ -16,6 +19,11 @@ type SearchSectionProps = {
   navigatesTo: string;
 };
 
+/**
+ * A section that displays a table of video/audio/photo data, and allows for them to navigate to the edit page. Built for reuse.
+ * @param props SearchSectionProps
+ * @returns React.FC
+ */
 const SearchSection = (props: SearchSectionProps) => {
   const { title, data, sx, navigatesTo, ...rest } = props;
   const router = useRouter();

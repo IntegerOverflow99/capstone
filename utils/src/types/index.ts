@@ -7,3 +7,5 @@ export * from './Photo.types';
 export * from './TaggedMedia.types';
 export * from './User.types';
 export * from './Video.types';
+
+// barrel file for types

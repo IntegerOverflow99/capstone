@@ -17,11 +17,19 @@ import { useRouter } from 'next/navigation';
 import { IUserJSONModel, IVideoRatings } from '@capstone/utils/types';
 import bcrypt from 'bcryptjs';
 
+/**
+ * Props for the AddUser component
+ */
 type AddUserProps = {
   show: boolean;
   onClose: () => void;
 };
 
+/**
+ * Add User Form
+ * @param props AddUserProps
+ * @returns React.FC
+ */
 const AddUser = (props: AddUserProps) => {
   const { show, onClose } = props;
   const [username, setUsername] = useState<string>('');

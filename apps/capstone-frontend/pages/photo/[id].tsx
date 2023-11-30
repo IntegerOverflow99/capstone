@@ -21,8 +21,14 @@ import ProfileWidget from '../../components/ProfileWidget';
 import { addToFavorites } from 'apps/capstone-frontend/lib/addToFavorites';
 import { enqueueSnackbar } from 'notistack';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * Photo Single File View Page - allows for downloading and viewing of photo files, and viewing of metadata
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 const PhotoViewPage = (props: { session: IUserSessionData }) => {
   const { session } = props;
   const router = useRouter();

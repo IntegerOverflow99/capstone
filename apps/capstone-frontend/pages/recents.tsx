@@ -28,9 +28,15 @@ import { useSearchParams } from 'next/navigation';
 import { getServerSidePropsSession } from '../lib/SessionContext';
 import ProfileWidget from '../components/ProfileWidget';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
-export function SearchPage(props: { session: IUserSessionData }) {
+/**
+ * Recents Page - allows for searching and filtering of recently viewed media, same as the search page
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
+export function RecentsPage(props: { session: IUserSessionData }) {
   const { session } = props;
   const axios = useAxios();
   const searchParams = useSearchParams();
@@ -101,4 +107,4 @@ export function SearchPage(props: { session: IUserSessionData }) {
   );
 }
 
-export default SearchPage;
+export default RecentsPage;

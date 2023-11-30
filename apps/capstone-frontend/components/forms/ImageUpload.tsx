@@ -10,11 +10,19 @@ import { enqueueSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import { LoadingButton } from '@mui/lab';
 
+/**
+ * Props for the ImageUploadForm component
+ */
 type ImageUploadFormProps = {
   file: File | null;
   title: string;
 };
 
+/**
+ * Image Upload Form
+ * @param props ImageUploadFormProps
+ * @returns React.FC
+ */
 export const ImageUploadForm = (props: ImageUploadFormProps) => {
   const { title, file } = props;
   const [takenAt, setTakenAt] = useState<string>('null');

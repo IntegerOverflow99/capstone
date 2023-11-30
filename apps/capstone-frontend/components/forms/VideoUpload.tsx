@@ -17,11 +17,19 @@ import { IVideoRatings, IVideoUpload } from '@capstone/utils/types';
 import { enqueueSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 
+/**
+ * Props for the VideoUploadForm component
+ */
 type VideoUploadFormProps = {
   file: File | null;
   title: string;
 };
 
+/**
+ * Video Upload Form
+ * @param props VideoUploadFormProps
+ * @returns React.FC
+ */
 export const VideoUploadForm = (props: VideoUploadFormProps) => {
   const { title, file } = props;
   const [description, setDescription] = useState<string>('');

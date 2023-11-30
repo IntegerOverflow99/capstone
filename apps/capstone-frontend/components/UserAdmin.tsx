@@ -7,11 +7,19 @@ import React, { useState } from 'react';
 import UserEdit from './forms/UserEdit';
 import AddUser from './forms/AddUser';
 
+/**
+ * Props for the UserAdmin component
+ */
 type UserAdminProps = {
   show: boolean;
   users: IUserJSONModel[];
 };
 
+/**
+ * User Administration Component - is a collapse component that shows a table of all users, and allows for editing of users
+ * @param props UserAdminProps
+ * @returns React.FC
+ */
 const UserAdmin = (props: UserAdminProps) => {
   const { show, users } = props;
   const [selectedUser, setSelectedUser] = useState<IUserJSONModel | null>();

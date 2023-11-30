@@ -17,12 +17,20 @@ import { useRouter } from 'next/navigation';
 import { IUserJSONModel, IVideoRatings } from '@capstone/utils/types';
 import bcrypt from 'bcryptjs';
 
+/**
+ * Props for the UserEdit component
+ */
 type UserEditProps = {
   open: boolean;
   onClose: () => void;
   row?: IUserJSONModel;
 };
 
+/**
+ * User Editing Form
+ * @param props UserEditProps
+ * @returns React.FC
+ */
 const UserEdit = (props: UserEditProps) => {
   const { open, onClose, row } = props;
   const [username, setUsername] = useState<string>(row?.username || '');

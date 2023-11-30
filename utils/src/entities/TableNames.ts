@@ -1,3 +1,6 @@
+/**
+ * Enum of table names.
+ */
 export enum TableNames {
   USERS = 'users',
   MEDIA = 'media',
@@ -10,4 +13,7 @@ export enum TableNames {
   PHOTOS = 'photos',
 }
 
+/**
+ * Array of table names.
+ */
 export const TableNamesArray = Object.values(TableNames);

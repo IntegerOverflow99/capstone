@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import ProfileWidget from '../components/ProfileWidget';
 import { useAxios } from '@capstone/utils/general';
 
+// get props for serverside rendering
 export const getServerSideProps = withIronSessionSsr(async (context) => {
   const session = context.req.session;
   return {
@@ -16,6 +17,11 @@ export const getServerSideProps = withIronSessionSsr(async (context) => {
   };
 }, sessionOptions);
 
+/**
+ * The login index page - users are forced here by middleware to login before accessing the rest of the site
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 const SignInPage = (props: { session: any }) => {
   const { session } = props;
   const [username, setUsername] = useState('');

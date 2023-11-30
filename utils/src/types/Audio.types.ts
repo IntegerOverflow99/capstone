@@ -1,6 +1,9 @@
 import * as Chance from 'chance';
 import dayjs from 'dayjs';
 
+/**
+ * Database Model of Audio Table
+ */
 export type IAudioDBModel = {
   id: number;
   title: string;
@@ -13,6 +16,9 @@ export type IAudioDBModel = {
   uploaded: string;
 };
 
+/**
+ * JSON Model of Audio Table for API responses
+ */
 export type IAudioJSONModel = {
   id?: number;
   releaseYear: number;
@@ -22,8 +28,18 @@ export type IAudioJSONModel = {
   };
 } & IAudioDBModel;
 
+/**
+ * Audio object for uploading to the database
+ */
 export type IAudioUpload = Omit<IAudioDBModel, 'id' | 'media_id'>;
 
+/**
+ * Generates a fake audio object for database seeding while testing.
+ * @param chance Chance instance
+ * @param id ID of the audio
+ * @param media_fk the media foreign key
+ * @returns A fake audio object
+ */
 export const AudioGenerator = (
   chance: Chance.Chance,
   id: number,

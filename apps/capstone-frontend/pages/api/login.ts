@@ -5,6 +5,11 @@ import { IUserJSONModel, IUserSessionData } from '@capstone/utils/types';
 import { sessionOptions } from 'apps/capstone-frontend/lib/session';
 import bcrypt from 'bcrypt';
 
+/**
+ * Handles login attempts - checks the incoming password against the hash, and if they match, sets the session data accordingly. If they don't match, returns a 401.
+ * @param req the incoming HTTP request
+ * @param res the outgoing HTTP response
+ */
 async function loginRoute(req: NextApiRequest, res: NextApiResponse) {
   const { username, password } = await req.body;
   const URL = `http://localhost:3000/user/${username}`;

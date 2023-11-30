@@ -14,12 +14,20 @@ import { enqueueSnackbar } from 'notistack';
 import { AxiosError } from 'axios';
 import { useRouter } from 'next/navigation';
 
+/**
+ * Props for the AudioEdit component
+ */
 type AudioEditProps = {
   open: boolean;
   onClose: () => void;
   row?: IAudioUpload & { id: number };
 };
 
+/**
+ * Audio Editing Form
+ * @param props AudioEditProps
+ * @returns React.FC
+ */
 const AudioEdit = (props: AudioEditProps) => {
   const { open, onClose, row } = props;
   const [title, setTitle] = useState<string>(row?.title || '');

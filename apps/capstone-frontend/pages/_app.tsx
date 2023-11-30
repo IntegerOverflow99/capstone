@@ -40,12 +40,20 @@ import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
 import { SnackbarProvider } from 'notistack';
 import { useAxios } from '@capstone/utils/general';
+/**
+ * Props for the EasyListItem component
+ */
 interface EasyListItemProps {
   text: string;
   icon?: ReactNode;
   onClick?: () => void;
 }
 
+/**
+ * Easy List Item - MUI List Item, clickable with text and optional icon
+ * @param props EasyListItemProps
+ * @returns React.FC
+ */
 const EasyListItem = (props: EasyListItemProps) => {
   const { icon, text, onClick } = props;
   return (
@@ -59,13 +67,18 @@ const EasyListItem = (props: EasyListItemProps) => {
 };
 
 //drawer example from - https://mui.com/material-ui/react-drawer/#persistent-drawer
-
 const drawerWidth = 240;
 
+/**
+ * Props for the AppBar component
+ */
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean;
 }
 
+/**
+ * Custom AppBar - MUI AppBar with custom styling for transitions
+ */
 const AppBar = styled(MuiAppBar, {
   shouldForwardProp: (prop) => prop !== 'open',
 })<AppBarProps>(({ theme, open }) => ({
@@ -83,6 +96,11 @@ const AppBar = styled(MuiAppBar, {
   }),
 }));
 
+/**
+ * The application root component - contains the sidebar, the appbar, and the content viewport
+ * @param param0 { Component, pageProps } the component and page props from nextjs
+ * @returns The Base App Component
+ */
 function CustomApp({ Component, pageProps }: AppProps) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = () => {

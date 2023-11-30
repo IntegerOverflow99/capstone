@@ -16,10 +16,18 @@ import AudioEdit from './forms/AudioEdit';
 import PhotoEdit from './forms/PhotoEdit';
 import VideoEdit from './forms/VideoEdit';
 
+/**
+ * Props for the MediaAdmin component
+ */
 type MediaAdminProps = {
   show: boolean;
 };
 
+/**
+ * Media Administration Component - is a collapse component that shows a table of all media, and allows for editing of media
+ * @param props MediaAdminProps
+ * @returns React.FC
+ */
 const MediaAdmin = (props: MediaAdminProps) => {
   const { show } = props;
   const axios = useAxios();

@@ -4,6 +4,9 @@ import { Button, Card, Popover, Stack, Typography, Box } from '@mui/material';
 import { useRouter } from 'next/router';
 import React from 'react';
 
+/**
+ * Props for the ProfileModal component
+ */
 type ProfileModalProps = {
   open: boolean;
   session: IUserSessionData;
@@ -15,6 +18,11 @@ type ProfileModalProps = {
   onClose?: () => void;
 };
 
+/**
+ * Profile Modal - displays user info, logout button, and admin page button
+ * @param props ProfileModalProps
+ * @returns React.FC
+ */
 const ProfileModal = (props: ProfileModalProps) => {
   const { open, session, anchorEl, anchorOrigin, onClose } = props;
   const axios = useAxios();

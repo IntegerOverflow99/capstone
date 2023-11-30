@@ -23,8 +23,14 @@ import { getServerSidePropsSession } from '../../lib/SessionContext';
 import ProfileWidget from '../../components/ProfileWidget';
 import { addToFavorites } from 'apps/capstone-frontend/lib/addToFavorites';
 
+// get props for serverside rendering
 export const getServerSideProps = getServerSidePropsSession;
 
+/**
+ * Audio Single File View Page - allows for downloading and streaming of audio files
+ * @param props { session: IUserSessionData }
+ * @returns React.FC
+ */
 const AudioViewPage = (props: { session: IUserSessionData }) => {
   const { session } = props;
   const router = useRouter();

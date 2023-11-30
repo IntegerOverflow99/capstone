@@ -6,12 +6,20 @@ import { useRouter } from 'next/navigation';
 import { enqueueSnackbar } from 'notistack';
 import React, { useState, useEffect } from 'react';
 
+/**
+ * Props for the PhotoEdit component
+ */
 type PhotoEditProps = {
   open: boolean;
   onClose: () => void;
   row?: IPhotoUpload & { id: number };
 };
 
+/**
+ * Photo Editing Form
+ * @param props PhotoEditProps
+ * @returns React.FC
+ */
 const PhotoEdit = (props: PhotoEditProps) => {
   const { open, onClose, row } = props;
   const [description, setDescription] = useState<string>(

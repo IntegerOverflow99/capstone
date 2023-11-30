@@ -8,6 +8,10 @@ import { Audio } from './Audio';
 import { Video } from './Video';
 import { Photo } from './Photo';
 
+/**
+ * ObjectionJS model for Media table.
+ * Models a single media entry, and its relations.
+ */
 export class Media extends BaseEntity implements IMediaDBModel {
   static override get tableName() {
     return TableNames.MEDIA;

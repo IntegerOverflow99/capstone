@@ -9,11 +9,19 @@ import { enqueueSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
 import { LoadingButton } from '@mui/lab';
 
+/**
+ * Props for the AudioUploadForm component
+ */
 type AudioUploadFormProps = {
   file: File | null;
   title: string;
 };
 
+/**
+ * Audio Upload Form
+ * @param props AudioUploadFormProps
+ * @returns React.FC
+ */
 export const AudioUploadForm = (props: AudioUploadFormProps) => {
   const { title, file } = props;
   const [artist, setArtist] = useState<string>('');

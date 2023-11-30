@@ -5,6 +5,15 @@ import { Model, Pojo, snakeCaseMappers } from 'objection';
 import path from 'path';
 dayjs.extend(utc);
 
+/**
+ * The base for all entities. It provides the following:
+ * - A static `knex()` method that returns the Knex instance.
+ * - A static `rawSQL()` method that executes raw SQL queries.
+ * - A `$knex()` method that returns the Knex instance.
+ * - A `$formatDatabaseJson()` method that handles converting time types.
+ * - A `modelPaths` getter that returns the path to the entities.
+ * - A `columnNameMappers` getter that returns the snake case mappers, to map camelcase to snake case.
+ */
 export default abstract class BaseEntity extends Model {
   static override get modelPaths() {
     return [path.dirname(__dirname)];

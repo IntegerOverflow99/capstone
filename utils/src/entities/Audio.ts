@@ -3,6 +3,10 @@ import BaseEntity from './BaseEntity';
 import { TableNames } from './TableNames';
 import { Media } from './Media';
 
+/**
+ * ObjectionJS model for Audio table.
+ * Models a single audio entry, and its relations.
+ */
 export class Audio extends BaseEntity implements IAudioDBModel {
   static override get tableName() {
     return TableNames.AUDIO;

@@ -1,6 +1,9 @@
 import * as Chance from 'chance';
 import dayjs from 'dayjs';
 
+/**
+ * Enum for video ratings
+ */
 export enum IVideoRatings {
   G = 'G',
   PG = 'PG',
@@ -9,6 +12,9 @@ export enum IVideoRatings {
   NC17 = 'NC-17',
 }
 
+/**
+ * Database Model of Video Table
+ */
 export type IVideoDBModel = {
   id: number;
   title: string;
@@ -23,18 +29,34 @@ export type IVideoDBModel = {
   rating: IVideoRatings;
 };
 
+/**
+ * Video object for uploading to the database
+ */
 export type IVideoUpload = Omit<IVideoDBModel, 'id' | 'media_id'>;
 
+/**
+ * Video object for editing in the database
+ */
 export type IVideoEditValues = Omit<
   IVideoDBModel,
   'media_id' | 'release_year'
 > & { releaseYear: number };
 
+/**
+ * JSON Model of Video Table for API responses
+ */
 export type IVideoJSONModel = {
   media: { id?: number; fileLocation?: string };
   releaseYear?: number;
 } & Omit<IVideoDBModel, 'media_id' | 'release_year'>;
 
+/**
+ * Generates a fake video object for database seeding while testing.
+ * @param chance Chance instance
+ * @param id ID of the video
+ * @param media_fk the media foreign key
+ * @returns A fake video object
+ */
 export const VideoGenerator = (
   chance: Chance.Chance,
   id: number,

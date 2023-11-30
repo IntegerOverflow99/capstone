@@ -6,10 +6,18 @@ import { useAxios } from '@capstone/utils/general';
 import ProfileModal from './ProfileModal';
 import { useRouter } from 'next/router';
 
+/**
+ * Props for the ProfileWidget component
+ */
 type ProfileWidgetProps = {
   session: IUserSessionData;
 };
 
+/**
+ * Widget that displays the user's username and profile picture, exists everywhere onsite
+ * @param props ProfileWidgetProps
+ * @returns React.FC
+ */
 const ProfileWidget = (props: ProfileWidgetProps) => {
   const { session } = props;
   const axios = useAxios();
