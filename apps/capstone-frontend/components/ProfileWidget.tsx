@@ -41,7 +41,7 @@ const ProfileWidget = (props: ProfileWidgetProps) => {
           variant="h6"
           sx={{ m: 1 }}
           color="text.secondary"
-          display={{ sm: 'none', md: 'block' }}
+          display={{ xs: 'none', sm: 'none', md: 'block' }}
         >
           {session?.user?.username || 'Click to Log In'}
         </Typography>
