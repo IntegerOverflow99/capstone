@@ -34,7 +34,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { AccountCircle } from '@mui/icons-material';
 import Image from 'next/image';
-import logo from '../assets/logo.jpg';
+import logo from '../assets/logo.png';
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useSearchParams } from 'next/navigation';
@@ -98,7 +98,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
     <>
       <SnackbarProvider maxSnack={3}>
         <Head>
-          <title>Media Server Site</title>
+          <title>Capstone Media Server</title>
         </Head>
         <CssBaseline />
         <AppBar
