@@ -44,6 +44,7 @@ const SearchSection = (props: SearchSectionProps) => {
           uploaded: false,
           width: false,
           height: false,
+          fileLocation: false,
         }}
         initialState={{
           pagination: {
