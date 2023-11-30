@@ -66,12 +66,22 @@ const SignInPage = (props: { session: any }) => {
             label="Username"
             fullWidth
             onChange={(e) => setUsername(e.target.value)}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                handleSignIn();
+              }
+            }}
           />
           <TextField
             label="Password"
             fullWidth
             type="password"
             onChange={(e) => setPassword(e.target.value)}
+            onKeyUp={(e) => {
+              if (e.key === 'Enter') {
+                handleSignIn();
+              }
+            }}
           />
         </Stack>
         <Button

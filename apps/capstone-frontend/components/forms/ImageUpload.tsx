@@ -31,11 +31,14 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
         const data = await exifr.parse(file);
         setTakenAt(
           dayjs(
-            data.DateTimeOriginal || data.DateTime || data.CreateDate
+            data?.DateTimeOriginal ||
+              data?.DateTime ||
+              data?.CreateDate ||
+              dayjs()
           ).format('YYYY-MM-DD HH:mm:ss')
         );
-        setHeight(data.XResolution);
-        setWidth(data.YResolution);
+        setHeight(data?.XResolution || 0);
+        setWidth(data?.YResolution || 0);
       }
     };
     getEXIF();
@@ -86,8 +89,8 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
           label="Tags"
           placeholder="Tags"
           value={tags}
-          onChange={() => {
-            setTags(tags);
+          onChange={(e) => {
+            setTags(e.target.value);
           }}
         />
       </SimpleGridItem>

@@ -84,7 +84,7 @@ const AppBar = styled(MuiAppBar, {
 }));
 
 function CustomApp({ Component, pageProps }: AppProps) {
-  const [drawerOpen, setDrawerOpen] = useState(true);
+  const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = () => {
     setDrawerOpen(!drawerOpen);
   };

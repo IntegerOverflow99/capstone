@@ -91,11 +91,16 @@ const PhotoViewPage = (props: { session: IUserSessionData }) => {
               </Typography>
               <Divider />
               <Typography variant="body1">
-                <em>Resolution</em> - {photo?.height}x{photo?.width}
+                <em>Resolution</em> -{' '}
+                {photo?.height == 0 && photo?.width == 0
+                  ? `Image missing EXIF data, unable to determine resolution.`
+                  : `${photo?.height}x${photo?.width}`}
               </Typography>
             </Stack>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              <Typography variant="body1">Tags here</Typography>
+              <Typography variant="body1">
+                <em>Tags</em> - {(photo as any)?.globalTags || 'Untagged'}
+              </Typography>
             </Box>
           </Stack>
         </Grid>

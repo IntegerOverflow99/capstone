@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, TextField, Typography } from '@mui/material';
+import { Button, Grid, Stack, TextField, Typography } from '@mui/material';
 import { parseBlob } from 'music-metadata-browser';
 import SimpleGridItem from './SimpleGridItem';
 import { IAudioUpload } from '@capstone/utils/types';
@@ -114,15 +114,24 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
         />
       </SimpleGridItem>
       <SimpleGridItem>
-        <TextField
-          fullWidth
-          label="Release Year"
-          placeholder="Release Year"
-          value={releaseYear}
-          onChange={(e) => {
-            setReleaseYear(Number(e.target.value));
-          }}
-        />
+        <Stack direction="row" spacing={2}>
+          <TextField
+            fullWidth
+            label="Release Year"
+            placeholder="Release Year"
+            value={releaseYear}
+            onChange={(e) => {
+              setReleaseYear(Number(e.target.value));
+            }}
+          />
+          <Button
+            variant="contained"
+            size="small"
+            onClick={() => setReleaseYear(dayjs().year())}
+          >
+            Use Current Year
+          </Button>
+        </Stack>
       </SimpleGridItem>
       <SimpleGridItem>
         <TextField

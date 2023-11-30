@@ -185,9 +185,6 @@ const AudioViewPage = (props: { session: IUserSessionData }) => {
                 {audio && Math.floor(audio.length % 60)}
               </Typography>
             </Stack>
-            <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              <Typography variant="body1">Tags here</Typography>
-            </Box>
           </Stack>
         </Grid>
       </Grid>

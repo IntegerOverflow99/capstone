@@ -9,6 +9,7 @@ import {
 import { getServerSidePropsSession } from '../lib/SessionContext';
 import ProfileWidget from '../components/ProfileWidget';
 import { IUserSessionData } from '@capstone/utils/types';
+import { enqueueSnackbar } from 'notistack';
 
 export const getServerSideProps = getServerSidePropsSession;
 
@@ -17,7 +18,6 @@ const UploadPage = (props: { session: IUserSessionData }) => {
   const [file, setFile] = useState<File | null>(null);
   const fileType = useMemo(() => {
     if (!file) return '';
-    console.log(file.type);
     return file.type.split('/')[0];
   }, [file]);
   const [title, setTitle] = useState<string>('');
@@ -45,9 +45,18 @@ const UploadPage = (props: { session: IUserSessionData }) => {
             label="Upload File"
             placeholder="Upload File"
             inputProps={{
-              accept: 'image/jpg,image/jpeg,video/mp4,video/mov,audio/mp3',
+              accept: 'image/jpg,image/jpeg,video/mp4,audio/mp3',
             }}
             onChange={(newFile: File | null) => {
+              if (newFile && newFile.size > 50000000 /* 50mb */) {
+                enqueueSnackbar(
+                  'File size too large! Limited to 50 megabytes on the public host!',
+                  {
+                    variant: 'error',
+                  }
+                );
+                return;
+              }
               setFile(newFile);
             }}
           />
@@ -60,6 +69,11 @@ const UploadPage = (props: { session: IUserSessionData }) => {
           }[fileType]
         }
       </Grid>
+      <Typography variant="subtitle1" sx={{ mt: 2 }}>
+        <em>Supported file types: .jpg, .jpeg, .mp4, .mp3</em>
+        <br />
+        <em>Max File Size (Imposed for public host): 50mb</em>
+      </Typography>
     </Box>
   );
 };

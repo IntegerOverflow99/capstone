@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Grid, Typography, TextField } from '@mui/material';
+import {
+  Button,
+  Grid,
+  Typography,
+  TextField,
+  Select,
+  MenuItem,
+  Stack,
+} from '@mui/material';
 import dayjs from 'dayjs';
 import SimpleGridItem from './SimpleGridItem';
 import { Video } from 'video-metadata-thumbnails';
@@ -22,7 +30,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
   const [width, setWidth] = useState<number>(0);
   const [watchTime, setWatchTime] = useState<number>(0);
   const [genres, setGenres] = useState<string>('');
-  const [rating, setRating] = useState<string>('');
+  const [rating, setRating] = useState<string>('E');
   const [enableUpload, setEnableUpload] = useState<boolean>(false);
   const axios = useAxios();
   const router = useRouter();
@@ -45,7 +53,6 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
       title &&
       description &&
       releaseYear &&
-      tags &&
       height &&
       width &&
       watchTime &&
@@ -60,7 +67,6 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
     title,
     description,
     releaseYear,
-    tags,
     height,
     width,
     watchTime,
@@ -73,7 +79,6 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
       title,
       description,
       release_year: releaseYear,
-      tags,
       height,
       width,
       runtime: watchTime,
@@ -130,19 +135,9 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
       <SimpleGridItem>
         <TextField
           fullWidth
-          label="Tags"
-          placeholder="Tags"
-          value={tags}
-          onChange={(e) => {
-            setTags(e.target.value);
-          }}
-        />
-      </SimpleGridItem>
-      <SimpleGridItem>
-        <TextField
-          fullWidth
           label="Height"
           placeholder="Height"
+          disabled
           value={height}
           onChange={(e) => {
             setHeight(Number(e.target.value));
@@ -154,6 +149,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
           fullWidth
           label="Width"
           placeholder="Width"
+          disabled
           value={width}
           onChange={(e) => {
             setWidth(Number(e.target.value));
@@ -166,6 +162,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
           label="Watch Time"
           placeholder="Watch Time"
           value={watchTime}
+          disabled
           onChange={(e) => {
             setWatchTime(Number(e.target.value));
           }}
@@ -182,17 +179,33 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
           }}
         />
       </SimpleGridItem>
-      <SimpleGridItem>
-        <TextField
-          fullWidth
-          label="Rating"
-          placeholder="Rating"
-          value={rating}
-          onChange={(e) => {
-            setRating(e.target.value);
-          }}
-        />
-      </SimpleGridItem>
+      <Grid item xs={12}>
+        <Stack direction="row" spacing={2}>
+          <Typography
+            variant="h6"
+            sx={{
+              //vertically center in parent, horizontally right justify text
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'flex-end',
+            }}
+          >
+            Rating
+          </Typography>
+          <Select
+            fullWidth
+            value={rating}
+            onChange={(e) => setRating(e.target.value as string)}
+            label="Rating"
+          >
+            <MenuItem value="E">E</MenuItem>
+            <MenuItem value="PG">PG</MenuItem>
+            <MenuItem value="PG-13">PG-13</MenuItem>
+            <MenuItem value="R">R</MenuItem>
+            <MenuItem value="NC-17">NC-17</MenuItem>
+          </Select>
+        </Stack>
+      </Grid>
       <Grid item xs={12}>
         <Button
           variant="contained"

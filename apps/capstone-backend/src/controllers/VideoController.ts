@@ -70,7 +70,6 @@ export class VideoController
     const fileExtension = req.get('File-Extension');
     const media: Buffer = req.body;
     const video = req.query as any as IVideoUpload;
-    delete video.tags; //TODO: implement tags
 
     const media_out = await this.mediaService.addMedia(media, fileExtension);
 

@@ -23,9 +23,7 @@ export type IVideoDBModel = {
   rating: IVideoRatings;
 };
 
-export type IVideoUpload = Omit<IVideoDBModel, 'id' | 'media_id'> & {
-  tags: string;
-};
+export type IVideoUpload = Omit<IVideoDBModel, 'id' | 'media_id'>;
 
 export type IVideoEditValues = Omit<
   IVideoDBModel,

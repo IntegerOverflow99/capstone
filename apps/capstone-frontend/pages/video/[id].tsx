@@ -94,7 +94,6 @@ const VideoViewPage = (props: { session: IUserSessionData }) => {
         <Grid item md={3} sm={12}>
           <Box sx={{ outline: 'solid', m: 0.5 }}>
             <Stack spacing={1} sx={{ p: 2 }}>
-              <Skeleton variant="rectangular" height={500} />
               <Button
                 variant="outlined"
                 startIcon={<StarOutlineIcon />}
@@ -160,9 +159,6 @@ const VideoViewPage = (props: { session: IUserSessionData }) => {
                 <em>Resolution</em> - {video?.width}x{video?.height}
               </Typography>
             </Stack>
-            <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
-              <Typography variant="body1">Tags here</Typography>
-            </Box>
           </Stack>
         </Grid>
       </Grid>
