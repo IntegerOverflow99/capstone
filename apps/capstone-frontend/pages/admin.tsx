@@ -35,7 +35,7 @@ const AdminPage = (props: { session: IUserSessionData }) => {
 
   const [users, setUsers] = useState<IUserJSONModel[]>([]);
   const [userSection, setUserSection] = useState(false);
-  const [mediaSection, setMediaSection] = useState(true);
+  const [mediaSection, setMediaSection] = useState(false);
   const [selectedUser, setSelectedUser] = useState<IUserJSONModel | null>();
 
   useEffect(() => {

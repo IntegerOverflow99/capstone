@@ -1,10 +1,11 @@
 import { User } from '@capstone/utils/entities';
 import { camelToCapsAndSpaces } from '@capstone/utils/general';
 import { IUserJSONModel } from '@capstone/utils/types';
-import { Collapse, Typography } from '@mui/material';
+import { Button, Collapse, Typography } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 import React, { useState } from 'react';
 import UserEdit from './forms/UserEdit';
+import AddUser from './forms/AddUser';
 
 type UserAdminProps = {
   show: boolean;
@@ -14,12 +15,21 @@ type UserAdminProps = {
 const UserAdmin = (props: UserAdminProps) => {
   const { show, users } = props;
   const [selectedUser, setSelectedUser] = useState<IUserJSONModel | null>();
+  const [addingUser, setAddingUser] = useState(false);
   return (
-    <Collapse in={show} sx={{ mb: 6 }}>
+    <Collapse in={show} sx={{ mb: 12 }}>
       <Typography variant="overline">
         Click on a user to edit their data, filter and sort using the table
         headers
       </Typography>
+      <Button
+        fullWidth
+        variant="contained"
+        onClick={() => setAddingUser(true)}
+        sx={{ mb: 2 }}
+      >
+        Add User
+      </Button>
       <DataGrid
         rows={users}
         columns={Object.keys(users[0] || {}).map((key, idx, arr) => {
@@ -46,6 +56,7 @@ const UserAdmin = (props: UserAdminProps) => {
         onClose={() => setSelectedUser(null)}
         row={selectedUser as any}
       />
+      <AddUser show={addingUser} onClose={() => setAddingUser(false)} />
     </Collapse>
   );
 };
