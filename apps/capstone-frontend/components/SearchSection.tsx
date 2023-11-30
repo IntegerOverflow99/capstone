@@ -30,11 +30,21 @@ const SearchSection = (props: SearchSectionProps) => {
         columns={Object.keys(data[0] || {}).map((key, idx, arr) => {
           return {
             field: key,
-            headerName: camelToCapsAndSpaces(key),
+            headerName:
+              key == 'runtime' || key == 'length'
+                ? `${camelToCapsAndSpaces(key)} (SECONDS)`
+                : camelToCapsAndSpaces(key),
             width: 200,
           };
         })}
         rows={data as any}
+        columnVisibilityModel={{
+          id: false,
+          mediaId: false,
+          uploaded: false,
+          width: false,
+          height: false,
+        }}
         initialState={{
           pagination: {
             paginationModel: {

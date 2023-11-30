@@ -8,6 +8,7 @@ import { IPhotoUpload } from '@capstone/utils/types';
 import { useAxios } from '@capstone/utils/general';
 import { enqueueSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
+import { LoadingButton } from '@mui/lab';
 
 type ImageUploadFormProps = {
   file: File | null;
@@ -22,6 +23,7 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
   const [tags, setTags] = useState<string>('');
   const axios = useAxios();
   const router = useRouter();
+  const [uploading, setUploading] = useState<boolean>(false);
 
   useEffect(() => {
     const getEXIF = async () => {
@@ -45,6 +47,7 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
   }, [file]);
 
   const handleUpload = async () => {
+    setUploading(true);
     let upload: IPhotoUpload = {
       description: title,
       uploaded: dayjs().format('YYYY-MM-DD HH:mm:ss'),
@@ -70,6 +73,7 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
           enqueueSnackbar('Upload Failed', { variant: 'error' });
         }
       });
+    setUploading(false);
   };
 
   return (
@@ -113,14 +117,15 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
         />
       </SimpleGridItem>
       <Grid item xs={12}>
-        <Button
+        <LoadingButton
+          loading={uploading}
           variant="contained"
           fullWidth
           disabled={!file || !title}
           onClick={handleUpload}
         >
           Upload
-        </Button>
+        </LoadingButton>
       </Grid>
     </>
   );

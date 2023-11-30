@@ -68,6 +68,7 @@ const PhotoViewPage = (props: { session: IUserSessionData }) => {
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               {photo?.media?.id ? (
                 <img
+                  style={{ maxWidth: '100%' }}
                   src={
                     process.env['NODE_ENV'] !== 'production'
                       ? `http://localhost:4200/api/media/${photo?.media.id}`

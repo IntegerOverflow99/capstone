@@ -8,6 +8,7 @@ import {
   MenuItem,
   Stack,
 } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import dayjs from 'dayjs';
 import SimpleGridItem from './SimpleGridItem';
 import { Video } from 'video-metadata-thumbnails';
@@ -34,6 +35,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
   const [enableUpload, setEnableUpload] = useState<boolean>(false);
   const axios = useAxios();
   const router = useRouter();
+  const [uploading, setUploading] = useState<boolean>(false);
 
   useEffect(() => {
     const getMetadata = async () => {
@@ -74,6 +76,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
   ]);
 
   const handleUpload = async () => {
+    setUploading(true);
     let upload: IVideoUpload = {
       title,
       description,
@@ -97,11 +100,14 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
       .then((response) => {
         if (response.status === 200) {
           enqueueSnackbar('Upload Successful', { variant: 'success' });
-          router.push('/search');
+          setTimeout(() => {
+            router.push('/search');
+          }, 250);
         } else {
           enqueueSnackbar('Upload Failed', { variant: 'error' });
         }
       });
+    setUploading(false);
   };
 
   return (
@@ -127,6 +133,8 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
           placeholder="Release Year"
           value={releaseYear}
           onChange={(e) => {
+            //make sure e target value is a number
+            if (isNaN(Number(e.target.value))) return;
             setReleaseYear(Number(e.target.value));
           }}
         />
@@ -206,14 +214,15 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <Button
+        <LoadingButton
+          loading={uploading}
           variant="contained"
           fullWidth
           disabled={!enableUpload}
           onClick={handleUpload}
         >
           Upload
-        </Button>
+        </LoadingButton>
       </Grid>
     </>
   );

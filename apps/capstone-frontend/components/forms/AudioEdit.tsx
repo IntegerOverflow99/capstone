@@ -150,6 +150,7 @@ const AudioEdit = (props: AudioEditProps) => {
                 if (!row) return;
                 await axios.delete(`/audio/${row.id}`);
                 onClose();
+                router.refresh();
               }}
             >
               Delete

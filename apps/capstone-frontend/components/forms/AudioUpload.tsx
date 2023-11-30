@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { useAxios } from '@capstone/utils/general';
 import { enqueueSnackbar } from 'notistack';
 import { useRouter } from 'next/router';
+import { LoadingButton } from '@mui/lab';
 
 type AudioUploadFormProps = {
   file: File | null;
@@ -24,6 +25,7 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
   const [enableUpload, setEnableUpload] = useState<boolean>(false);
   const axios = useAxios();
   const router = useRouter();
+  const [uploading, setUploading] = useState<boolean>(false);
 
   useEffect(() => {
     const getMetadata = async () => {
@@ -48,6 +50,7 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
   }, [artist, album, length, releaseYear, genres, file]);
 
   const handleUpload = async () => {
+    setUploading(true);
     let upload: IAudioUpload = {
       title: title,
       artist: artist,
@@ -78,6 +81,7 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
           });
         }
       });
+    setUploading(false);
   };
 
   return (
@@ -156,14 +160,15 @@ export const AudioUploadForm = (props: AudioUploadFormProps) => {
         />
       </SimpleGridItem>
       <Grid item xs={12}>
-        <Button
+        <LoadingButton
+          loading={uploading}
           variant="contained"
           fullWidth
           disabled={!enableUpload}
           onClick={handleUpload}
         >
           Upload
-        </Button>
+        </LoadingButton>
       </Grid>
     </>
   );

@@ -15,6 +15,7 @@
     "@emotion/server": "11.11.0",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.14.9",
+    "@mui/lab": "^5.0.0-alpha.154",
     "@mui/material": "^5.14.9",
     "@mui/x-data-grid": "^6.18.2",
     "@nx/next": "16.8.0",
