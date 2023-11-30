@@ -31,7 +31,6 @@ export class PhotoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('GET ALL PHOTOS');
     const photos = await this.photoService.getAll();
     return photos;
   }
@@ -41,7 +40,6 @@ export class PhotoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('GET PHOTO');
     if (Number.isNaN(Number(req.params.id))) {
       return this.json(
         {
@@ -69,7 +67,6 @@ export class PhotoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('PHOTO UPLOAD');
     const fileExtension = req.get('File-Extension');
     const media: Buffer = req.body;
     const photo = req.query as any as IPhotoUpload;
@@ -86,7 +83,6 @@ export class PhotoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('UPDATE PHOTO');
     if (Number.isNaN(Number(req.params.id))) {
       return this.json(
         {
@@ -117,7 +113,6 @@ export class PhotoController
     @request() req: express.Request,
     @response() res: express.Response
   ) {
-    console.log('DELETE PHOTO');
     if (Number.isNaN(Number(req.params.id))) {
       return this.json(
         {

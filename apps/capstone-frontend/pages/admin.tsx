@@ -47,10 +47,6 @@ const AdminPage = (props: { session: IUserSessionData }) => {
     fetchUsers();
   }, [axios]);
 
-  useEffect(() => {
-    console.log(users);
-  }, [users]);
-
   return (
     <Box sx={{ flexGrow: 1, p: 5 }}>
       <ProfileWidget session={session} />

@@ -54,7 +54,6 @@ export class MediaService {
   }
 
   public async addMedia(media: Buffer, fileExtension: string) {
-    console.log('ADDING MEDIA');
     const rootFileLocation =
       process.env['NODE_ENV'] === 'production' ? '/media' : '/tmp/media';
     const fileLocation = `${rootFileLocation}/${crypto.randomUUID()}.${fileExtension}`;

@@ -7,8 +7,6 @@ export const middleware = async (req: NextRequest) => {
   const res = NextResponse.next();
   const { user } = await getIronSession(req, res, sessionOptions);
 
-  // console.log(req.nextUrl.pathname);
-
   if (req.nextUrl.pathname === '/') {
     return res;
   } else if (req.nextUrl.pathname.startsWith('/api/login')) {

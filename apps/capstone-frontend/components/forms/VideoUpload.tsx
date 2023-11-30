@@ -40,7 +40,6 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
       if (!file) return;
       const video = new Video(file);
       const metadata = await video.getMetadata();
-      console.log(metadata);
       setHeight(metadata.height);
       setWidth(metadata.width);
       setWatchTime(metadata.duration);
