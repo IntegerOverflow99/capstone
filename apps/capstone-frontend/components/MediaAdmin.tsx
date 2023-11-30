@@ -13,7 +13,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { useRouter, useSearchParams } from 'next/navigation';
 import React, { useEffect, useMemo, useState } from 'react';
 import AudioEdit from './forms/AudioEdit';
-import PhotoEdit from './forms/Photoedit';
+import PhotoEdit from './forms/PhotoEdit';
 import VideoEdit from './forms/VideoEdit';
 
 type MediaAdminProps = {
