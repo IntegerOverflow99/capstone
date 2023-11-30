@@ -84,6 +84,21 @@ export function SearchPage(props: { session: IUserSessionData }) {
             const { video, ...rest } = media;
             return video;
           })
+          .filter((video: IVideoJSONModel) => {
+            // ensure the video is below the users allowed video content rating
+            switch (session.user!.allowedVideoContentRating) {
+              case 'R':
+                return true;
+              case 'NC-17':
+                return video.rating !== 'R';
+              case 'PG-13':
+                return video.rating !== 'R' && video.rating !== 'NC-17';
+              case 'PG':
+                return video.rating === 'PG' || video.rating === 'G';
+              case 'G':
+                return video.rating === 'G';
+            }
+          })
       );
       setPhotos(
         response.data

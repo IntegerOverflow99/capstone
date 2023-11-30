@@ -29,7 +29,7 @@ const VideoEdit = (props: VideoEditProps) => {
   const [releaseYear, setReleaseYear] = useState<number>(row?.releaseYear || 0);
   const [genres, setGenres] = useState<string>(row?.genres || '');
   const [rating, setRating] = useState<IVideoRatings>(
-    (row?.rating as IVideoRatings) || 'E'
+    (row?.rating as IVideoRatings) || 'G'
   );
   const axios = useAxios();
   const router = useRouter();
@@ -115,7 +115,7 @@ const VideoEdit = (props: VideoEditProps) => {
               onChange={(e) => setRating(e.target.value as IVideoRatings)}
               fullWidth
             >
-              <MenuItem value="E">E</MenuItem>
+              <MenuItem value="G">G</MenuItem>
               <MenuItem value="PG">PG</MenuItem>
               <MenuItem value="PG13">PG13</MenuItem>
               <MenuItem value="R">R</MenuItem>

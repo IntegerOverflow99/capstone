@@ -31,7 +31,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
   const [width, setWidth] = useState<number>(0);
   const [watchTime, setWatchTime] = useState<number>(0);
   const [genres, setGenres] = useState<string>('');
-  const [rating, setRating] = useState<string>('E');
+  const [rating, setRating] = useState<string>('G');
   const [enableUpload, setEnableUpload] = useState<boolean>(false);
   const axios = useAxios();
   const router = useRouter();
@@ -205,7 +205,7 @@ export const VideoUploadForm = (props: VideoUploadFormProps) => {
             onChange={(e) => setRating(e.target.value as string)}
             label="Rating"
           >
-            <MenuItem value="E">E</MenuItem>
+            <MenuItem value="G">G</MenuItem>
             <MenuItem value="PG">PG</MenuItem>
             <MenuItem value="PG-13">PG-13</MenuItem>
             <MenuItem value="R">R</MenuItem>
