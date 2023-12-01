@@ -5,7 +5,7 @@ This a monorepo for the Mohawk College Software Development Capstone project. It
 ### Capstone Media Server - Frontend
 
 - Lives at - `/apps/capstone-frontend`
-- Built with - NextJS, React, MUI
+- Built with - NextJS (Pages Router), React, MUI
 
 ### Capstone Media Server - Backend
 
