@@ -33,19 +33,27 @@ The database is a MariaDB instance running in a Docker container (see `.devconta
 
 ## Running the app
 
+1. Create a .env file in the `.devcontainer` directory with the following contents:
+
+   ```
+   MARIADB_ROOT_PASSWORD=capstone
+   ```
+
+   If you are in production, you will want to change this password.
+
 1. Spin up the database from the root of the project with: `docker compose -f .devcontainer/docker-compose.yaml up -d`
-2. Install dependencies with: `npm install`
+1. Install dependencies with: `npm install`
    - Note - Sometimes NX has issues with switching platforms, so you may need to delete `node_modules` and `package-lock.json` and run `npm install` again if you encounter odd issues about platform errors.
-3. Migrate and seed the databse with: `npx knex migrate:latest --knexfile utils/src/objection-utils/knexconfig.ts && npx knex seed:run --knexfile utils/src/objection-utils/knexconfig.ts`
-4. Open two new terminals that will remain open as long as the app is running.
+1. Migrate and seed the databse with: `npx knex migrate:latest --knexfile utils/src/objection-utils/knexconfig.ts && npx knex seed:run --knexfile utils/src/objection-utils/knexconfig.ts`
+1. Open two new terminals that will remain open as long as the app is running.
    - My preferred way to do this is with `tmux` named sessions, but you can open a new terminal window in a GUI based server, or use `screen` or `byobu` if you prefer.
    - One is for the frontend, one for the backend.
-5. If you are in dev, skip step 6, and run the alternate commands listed for steps 7 and 8.
-6. In the frontend terminal, run: `npx nx run capstone-frontend:build`
+1. If you are in dev, skip step 6, and run the alternate commands listed for steps 7 and 8.
+1. In the frontend terminal, run: `npx nx run capstone-frontend:build`
    - Here is where you are most likely to notice the platform errors mentioned in step 2.
-7. In the backend terminal, run: `NODE_ENV=production npx nx run capstone-backend:serve`
+1. In the backend terminal, run: `NODE_ENV=production npx nx run capstone-backend:serve`
    - Alternate command: `npx nx run capstone-backend:serve`
-8. In the frontend terminal, run: `npx nx run capstone-frontend:serve:production`
+1. In the frontend terminal, run: `npx nx run capstone-frontend:serve:production`
    - Alternate command: `npx nx run capstone-frontend:serve
 
 This will spin up the frontend and backend servers, and the application can be accessed at localhost:4200.
