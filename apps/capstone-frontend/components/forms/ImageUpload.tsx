@@ -36,9 +36,10 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
   useEffect(() => {
     const getEXIF = async () => {
       if (!file) {
-        setTakenAt('');
+        setTakenAt(dayjs().format('YYYY-MM-DD HH:mm:ss'));
       } else {
         const data = await exifr.parse(file);
+        console.log(data);
         setTakenAt(
           dayjs(
             data?.DateTimeOriginal ||
@@ -47,8 +48,16 @@ export const ImageUploadForm = (props: ImageUploadFormProps) => {
               dayjs()
           ).format('YYYY-MM-DD HH:mm:ss')
         );
-        setHeight(data?.XResolution || 0);
-        setWidth(data?.YResolution || 0);
+        setHeight(
+          data?.XResolution == 72 // if the image is taken by a camera, the exif XYResolution will be defaulted to 72 - this is a hacky way to get the actual resolution, as EXIFImageWidth/Height are not always present when not taken by a camera (https://exiftool.org/forum/index.php?topic=10818.0)
+            ? data?.ExifImageWidth
+            : data?.XResolution || 0
+        );
+        setWidth(
+          data?.YResolution == 72
+            ? data?.ExifImageHeight
+            : data?.YResolution || 0
+        );
       }
     };
     getEXIF();
