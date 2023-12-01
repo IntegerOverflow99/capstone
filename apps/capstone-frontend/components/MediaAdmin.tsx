@@ -163,7 +163,7 @@ const MediaAdmin = (props: MediaAdminProps) => {
             pagination: {
               paginationModel: {
                 page: 0,
-                pageSize: 5,
+                pageSize: 10,
               },
             },
           }}

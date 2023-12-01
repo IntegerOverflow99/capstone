@@ -8,19 +8,7 @@ import {
   IPhotoUpload,
   IVideoUpload,
 } from '@capstone/utils/types';
-import {
-  Box,
-  Container,
-  Paper,
-  Typography,
-  TableContainer,
-  TableCell,
-  TableHead,
-  TableRow,
-  Table,
-  Collapse,
-} from '@mui/material';
-import { DataGrid } from '@mui/x-data-grid';
+import { Box, Container, Paper, Typography } from '@mui/material';
 import { camelToCapsAndSpaces, useAxios } from '@capstone/utils/general';
 import SearchSection from '../components/SearchSection';
 import UserAdmin from '../components/UserAdmin';
