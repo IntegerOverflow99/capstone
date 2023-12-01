@@ -98,7 +98,11 @@ export function SearchPage(props: { session: IUserSessionData }) {
               case 'NC-17':
                 return video.rating !== 'R';
               case 'PG-13':
-                return video.rating !== 'R' && video.rating !== 'NC-17';
+                return (
+                  video.rating !== 'R' &&
+                  video.rating !== 'NC-17' &&
+                  (video.rating as any) !== 'NC17'
+                );
               case 'PG':
                 return video.rating === 'PG' || video.rating === 'G';
               case 'G':
