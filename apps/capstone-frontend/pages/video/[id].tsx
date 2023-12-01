@@ -97,7 +97,7 @@ const VideoViewPage = (props: { session: IUserSessionData }) => {
     <Box>
       <ProfileWidget session={session} />
       <Grid container spacing={2}>
-        <Grid item md={3} sm={12}>
+        <Grid item md={3} sm={12} xs={12}>
           <Box sx={{ outline: 'solid', m: 0.5 }}>
             <Stack spacing={1} sx={{ p: 2 }}>
               <Button
@@ -132,7 +132,7 @@ const VideoViewPage = (props: { session: IUserSessionData }) => {
             </Stack>
           </Box>
         </Grid>
-        <Grid item md={9} sm={12}>
+        <Grid item md={9} sm={12} xs={12}>
           <Stack spacing={0}>
             <Box sx={{ outline: 'solid', m: 0.5, p: 1 }}>
               <Typography variant="h4">
