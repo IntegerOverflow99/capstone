@@ -53,6 +53,7 @@ const UserAdmin = (props: UserAdminProps) => {
         columnVisibilityModel={{
           id: false,
         }}
+        pageSizeOptions={[10, 25, 50, 100]}
         initialState={{
           pagination: {
             paginationModel: {

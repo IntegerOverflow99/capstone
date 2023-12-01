@@ -46,6 +46,7 @@ const SearchSection = (props: SearchSectionProps) => {
           };
         })}
         rows={data as any}
+        pageSizeOptions={[10, 25, 50, 100]}
         columnVisibilityModel={{
           id: false,
           mediaId: false,

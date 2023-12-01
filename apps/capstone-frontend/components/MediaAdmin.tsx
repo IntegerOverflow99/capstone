@@ -158,6 +158,7 @@ const MediaAdmin = (props: MediaAdminProps) => {
               width: 200,
             };
           })}
+          pageSizeOptions={[10, 25, 50, 100]}
           rows={data as any}
           initialState={{
             pagination: {
