@@ -1,6 +1,6 @@
 # Capstone Media Server Monorepo
 
-This a monorepo for the Mohawk College Software Development Capstone project. It contains the following projects:
+This a monorepo for the Mohawk College Software Development Capstone project. The monorepo is managed by [NX](https://nx.dev/), which is a tool that allows for the management of multiple projects in a single repository. NX is built on top of [Angular CLI](https://angular.io/cli), and provides a number of useful tools for managing multiple projects, including dependency management, code generation, and testing. It contains the following projects:
 
 ### Capstone Media Server - Frontend
 
