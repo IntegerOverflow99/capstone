@@ -167,6 +167,9 @@ const MediaAdmin = (props: MediaAdminProps) => {
               },
             },
           }}
+          columnVisibilityModel={{
+            id: false,
+          }}
           onRowClick={({ row }) => {
             switch (tab) {
               case 'video':

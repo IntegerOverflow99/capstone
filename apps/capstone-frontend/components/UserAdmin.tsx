@@ -50,6 +50,9 @@ const UserAdmin = (props: UserAdminProps) => {
         onRowClick={({ row }) => {
           setSelectedUser(row as any);
         }}
+        columnVisibilityModel={{
+          id: false,
+        }}
         initialState={{
           pagination: {
             paginationModel: {
